@@ -1,0 +1,108 @@
+// Dependencies
+import moment from "moment";
+import {
+	fetchPostsBySearchQuotes,
+	fetchPostsByAdvancedSearch,
+	likePost
+} from "../../actions/posts";
+
+// Redux
+import { createSlice } from "@reduxjs/toolkit";
+
+const initialState = {
+	posts: [],
+	searchStatus: "idle",
+	searchQuery: "",
+	authorQuery: "",
+	tagsQuery: [],
+	fromDateQuery: "01/01/2021",
+	toDateQuery: moment.utc().format("DD/MM/YYYY"),
+	isSearchModalOpen: false
+};
+
+const searchSlice = createSlice({
+	name: "search",
+	initialState,
+	reducers: {
+		changeSearch: (state, { payload }) => {
+			state.searchQuery = payload;
+		},
+		changeAuthor: (state, { payload }) => {
+			state.authorQuery = payload;
+		},
+		setTags: (state, { payload }) => {
+			state.tagsQuery = payload;
+		},
+		changeTags: (state, { payload }) => {
+			state.tagsQuery.push(payload);
+		},
+		deleteTags: (state, { payload }) => {
+			state.tagsQuery = state.tagsQuery.filter(tag => tag !== payload);
+		},
+		changeFromDate: (state, { payload }) => {
+			state.fromDateQuery = payload;
+		},
+		changeToDate: (state, { payload }) => {
+			state.toDateQuery = payload;
+		},
+		resetSearch: state => {
+			state.searchQuery = "";
+			state.authorQuery = "";
+			state.tagsQuery = [];
+			state.authorQuery = "";
+			state.fromDateQuery = "01/01/2021";
+			state.toDateQuery = moment.utc().format("DD/MM/YYYY");
+		},
+		closeSearchModal: state => {
+			state.isSearchModalOpen = false;
+		},
+		openSearchModal: state => {
+			state.isSearchModalOpen = true;
+		}
+	},
+	extraReducers: {
+		[fetchPostsBySearchQuotes.pending]: state => {
+			state.searchStatus = "loading";
+		},
+		[fetchPostsBySearchQuotes.fulfilled]: (state, action) => {
+			state.searchStatus = "succeeded";
+			state.posts = action.payload;
+		},
+		[fetchPostsBySearchQuotes.rejected]: state => {
+			state.searchStatus = "failed";
+		},
+		[fetchPostsByAdvancedSearch.pending]: state => {
+			state.searchStatus = "loading";
+		},
+		[fetchPostsByAdvancedSearch.fulfilled]: (state, action) => {
+			state.searchStatus = "succeeded";
+			state.posts = action.payload;
+		},
+		[fetchPostsByAdvancedSearch.rejected]: state => {
+			state.searchStatus = "failed";
+		},
+		[likePost.fulfilled]: (state, action) => {
+			state.posts = state.posts.map(post =>
+				post._id === action.payload._id
+					? { ...action.payload, profilePicture: post.profilePicture }
+					: post
+			);
+		}
+	}
+});
+
+export const {
+	resetSearch,
+	changeSearch,
+	changeAuthor,
+	changeTags,
+	setTags,
+	deleteTags,
+	changeFromDate,
+	changeToDate,
+	searchQuery,
+	closeSearchModal,
+	openSearchModal
+} = searchSlice.actions;
+
+export default searchSlice.reducer;

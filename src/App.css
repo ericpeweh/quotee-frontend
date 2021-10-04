@@ -1,0 +1,82 @@
+@font-face {
+	font-family: "proxima-nova";
+	src: url("./fonts/proxima-nova.woff") format("woff");
+	font-display: swap;
+}
+@font-face {
+	font-family: "aguafina-script";
+	src: url("./fonts/aguafina-script.ttf") format("truetype");
+}
+@font-face {
+	font-family: "cedarville-cursive";
+	src: url("./fonts/cedarville-cursive.ttf") format("truetype");
+}
+@font-face {
+	font-family: "delius-swash-caps";
+	src: url("./fonts/delius-swash-caps.ttf") format("truetype");
+}
+@font-face {
+	font-family: "fondamento";
+	src: url("./fonts/fondamento.ttf") format("truetype");
+}
+@font-face {
+	font-family: "indie-flower";
+	src: url("./fonts/indie-flower.ttf") format("truetype");
+}
+@font-face {
+	font-family: "just-me-again-down-here";
+	src: url("./fonts/just-me-again-down-here.ttf") format("truetype");
+}
+@font-face {
+	font-family: "kristi";
+	src: url("./fonts/kristi.ttf") format("truetype");
+}
+@font-face {
+	font-family: "patrick-hand";
+	src: url("./fonts/patrick-hand.ttf") format("truetype");
+}
+@font-face {
+	font-family: "pinyon-script";
+	src: url("./fonts/pinyon-script.ttf") format("truetype");
+}
+
+* {
+	box-sizing: border-box;
+	font-family: "proxima-nova";
+}
+
+body {
+	margin: 0;
+	font-family: "proxima-nova arial";
+}
+
+@media screen and (min-width: 600px) {
+	::-webkit-scrollbar {
+		width: 10px;
+	}
+
+	::-webkit-scrollbar-track-piece {
+		background-color: rgb(243, 243, 243);
+	}
+
+	::-webkit-scrollbar-thumb {
+		background-color: #cbcbcb;
+		outline: 2px solid #fff;
+		outline-offset: -2px;
+		border: 0.1px solid #b7b7b7;
+	}
+
+	::-webkit-scrollbar-thumb:hover {
+		background-color: #909090;
+	}
+}
+
+@media screen and (max-width: 600px) {
+	body::-webkit-scrollbar {
+		width: 0px;
+		background: transparent;
+		display: none;
+		-ms-overflow-style: none;
+		scrollbar-width: none;
+	}
+}
