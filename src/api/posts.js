@@ -3,7 +3,7 @@ import axios from "axios";
 
 // Base URL
 const API = axios.create({
-	baseURL: "http://localhost:5000",
+	baseURL: "https://quoteeapi.herokuapp.com",
 	withCredentials: true
 });
 
