@@ -32,7 +32,7 @@ const QRCodeElement = () => {
 			>
 				<Grid item>
 					<QRCode
-						value={`https://localhost:3000/${username}`}
+						value={`https://quoteeid.netlify.app/${username}`}
 						id="qrcode"
 						renderAs="canvas"
 						includeMargin
