@@ -74,7 +74,9 @@ const Article = ({ mobile }) => {
 								<React.Fragment key={paragraph}>
 									<Typography
 										variant="body1"
-										className={paragraph.includes("<notab>") ? "" : classes.articleText}
+										className={`${paragraph.includes("<notab>") ? "" : classes.articleText} ${
+											classes.wordWrap
+										}`}
 									>
 										{paragraph.includes("<notab>") ? paragraph.replace("<notab>", "") : paragraph}
 									</Typography>

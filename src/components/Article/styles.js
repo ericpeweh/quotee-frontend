@@ -63,6 +63,9 @@ const useStyles = makeStyles(theme => ({
 	errorContainer: {
 		height: "100vh"
 	},
+	wordWrap: {
+		wordWrap: "break-word"
+	},
 	[theme.breakpoints.down("xs")]: {
 		articleContainer: {
 			width: "100%",
