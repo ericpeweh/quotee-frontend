@@ -65,12 +65,13 @@ const HelpTab = ({ currentTab }) => {
 						<li>News & Ads Carousel</li>
 						<li>Create quotes & drafts</li>
 						<li>Download & share quotes</li>
+						<li>Share to social media</li>
 						<li>Quotes image selection / external source</li>
 						<li>Likes quotes</li>
 						<li>Favorites quotes</li>
-						<li>Delete, archive quotes</li>
+						<li>Edit, delete, archive quotes</li>
 						<li>User profile customization</li>
-						<li>Search quotes & advanced</li>
+						<li>Search quotes & advanced, tags search</li>
 						<li>Installable & push notifications</li>
 						<li>Daily "Quotes of the day"</li>
 						<li>User preferences (dark mode)</li>
@@ -92,7 +93,8 @@ const HelpTab = ({ currentTab }) => {
 					On request:
 					<ul>
 						<li>Emoticon reaction to quotes</li>
-						<li>Security optimization</li>
+						<li>More notifications</li>
+						<li>...</li>
 					</ul>
 				</PointListItem>
 				<a
