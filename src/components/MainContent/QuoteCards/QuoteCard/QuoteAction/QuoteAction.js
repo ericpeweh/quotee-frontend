@@ -8,6 +8,10 @@ import { fetchLikes, likePost, favoritePost } from "../../../../../actions/posts
 // Utils
 import formatLikes from "../../../../../utils/formatLikes";
 
+// Actions
+import { resetCanvas } from "../../../../../store/slices/canvasSlice";
+import { changeSearchQuery } from "../../../../../store/slices/imagesSlice";
+
 // Components
 import { CardActions, Grid, Typography, IconButton, Tooltip } from "@material-ui/core";
 import { Skeleton } from "@material-ui/lab";
@@ -24,6 +28,7 @@ import useStyles from "./styles";
 
 const QuoteAction = ({ quotes, mobile, status }) => {
 	const { userId, favoritedPosts } = useSelector(state => state.auth, shallowEqual);
+	const { postId } = useSelector(state => state.modal, shallowEqual);
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const classes = useStyles();
@@ -56,12 +61,14 @@ const QuoteAction = ({ quotes, mobile, status }) => {
 	};
 
 	const downloadRedirectHandler = () => {
+		dispatch(resetCanvas());
+		dispatch(changeSearchQuery(""));
 		history.push(`/${quotes.author}/p/${quotes._id}/share`);
 		window.scrollTo(0, 0);
 	};
 
 	const likesModalHandler = () => {
-		dispatch(fetchLikes(quotes._id));
+		if (quotes && postId !== quotes._id) dispatch(fetchLikes(quotes._id));
 		dispatch(likeModalPostId(quotes._id));
 		dispatch(likeModalChange(true));
 	};

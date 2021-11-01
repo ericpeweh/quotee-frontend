@@ -7,7 +7,7 @@ const useStyles = makeStyles(theme => ({
 		marginLeft: drawerWidth,
 		width: `calc(100% - ${drawerWidth}px)`,
 		padding: theme.spacing(3),
-		backgroundColor: theme.palette.type === "dark" ? "#545454" : "#f3f3f3",
+		backgroundColor: theme.palette.type === "dark" ? "#5c5c5c" : "#f3f3f3",
 		minHeight: "100vh"
 	},
 	fallbackContainer: {

@@ -44,11 +44,11 @@ const ShareToSocial = () => {
 	const dispatch = useDispatch();
 	const classes = useStyles();
 
-	const URL = `https://www.quotee.id/${author}/p/${quotesId}`;
+	const URL = `https://quoteequotes.xyz/${author}/p/${quotesId}`;
 
 	const copyQuotesHandler = () => {
 		navigator.clipboard.writeText(
-			`"${quotes}" - ${author} https://www.quotee.id/${author}/p/${quotesId}?source=copy_link`
+			`"${quotes}" - ${author} https://quoteequotes.xyz/${author}/p/${quotesId}?source=copy_link`
 		);
 		dispatch(closeShareModal());
 		dispatch(snackbarChange(true));

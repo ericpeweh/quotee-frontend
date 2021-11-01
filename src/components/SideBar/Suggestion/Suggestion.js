@@ -18,8 +18,10 @@ const Suggestion = () => {
 	const classes = useStyles();
 
 	useEffect(() => {
-		dispatch(fetchUserSuggestion());
-	}, [dispatch]);
+		if (status !== "succeeded") {
+			dispatch(fetchUserSuggestion());
+		}
+	}, [dispatch, status]);
 
 	return (
 		<Grid item container className={classes.suggestionContainer} direction="column">

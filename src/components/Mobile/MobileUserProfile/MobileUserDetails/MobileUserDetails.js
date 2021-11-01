@@ -24,7 +24,8 @@ const MobileUserDetails = () => {
 		posts: quotes,
 		postSearchStatus,
 		status,
-		postStatus
+		postStatus,
+		username: userProfileUsername
 	} = useSelector(state => state.userProfile, shallowEqual);
 	const {
 		following: userFollowing,
@@ -48,13 +49,13 @@ const MobileUserDetails = () => {
 
 	useEffect(() => {
 		if (
-			postStatus !== "succeeded" &&
-			postSearchStatus !== "loading" &&
-			authStatus === "succeeded"
+			authStatus === "succeeded" &&
+			(postStatus !== "succeeded" || userProfileUsername !== username) &&
+			postSearchStatus !== "loading"
 		) {
 			dispatch(fetchUserPosts(username));
 		}
-	}, [dispatch, username, postStatus, postSearchStatus, authStatus]);
+	}, [dispatch, username, postStatus, postSearchStatus, authStatus, userProfileUsername]);
 
 	const displayModeChangeHandler = (event, newDisplayMode) => {
 		if (newDisplayMode !== null) {

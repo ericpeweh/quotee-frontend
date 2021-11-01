@@ -32,7 +32,8 @@ const postSlice = createSlice({
 			state.postMessage = payload.message;
 		},
 		[likePost.fulfilled]: (state, { payload }) => {
-			state.post = payload;
+			const profilePicture = state.post?.profilePicture;
+			state.post = { ...payload.updatedPost, profilePicture };
 		}
 	}
 });

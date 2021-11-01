@@ -6,7 +6,9 @@ const useStyles = makeStyles(theme => ({
 	},
 	[theme.breakpoints.down(725)]: {
 		userDescription: {
-			fontSize: "0.7rem"
+			fontSize: "0.7rem",
+			textAlign: "center",
+			width: "100%"
 		},
 		userDescriptionContatiner: {
 			maxWidth: "100%"

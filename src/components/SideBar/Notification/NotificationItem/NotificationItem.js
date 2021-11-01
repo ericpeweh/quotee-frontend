@@ -20,7 +20,7 @@ const NotificationItem = ({ date, notificationAvatar, name, description, url, an
 	const classes = useStyles();
 
 	const clickHandler = () => {
-		history.push(url.replace("https://quoteeid.netlify.app/", ""));
+		history.push(url.replace("https://www.quoteequotes.xyz/", ""));
 	};
 
 	return (

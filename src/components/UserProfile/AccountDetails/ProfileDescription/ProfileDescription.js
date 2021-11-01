@@ -8,10 +8,11 @@ import { Grid, Typography } from "@material-ui/core";
 import useStyles from "./styles";
 
 const ProfileDescription = () => {
-	const { description, fullName } = useSelector(state => state.userProfile, shallowEqual);
+	const { description, fullName, status } = useSelector(state => state.userProfile, shallowEqual);
+	const isLoading = status === "loading";
 	const classes = useStyles();
 
-	return (
+	return isLoading ? null : (
 		<>
 			<Grid item>
 				<Typography variant="body1">{fullName}</Typography>

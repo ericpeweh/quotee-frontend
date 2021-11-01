@@ -3,7 +3,6 @@ import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { useRef, useEffect } from "react";
 import { fetchUserProfile } from "../../actions/users";
-import { resetUserProfile } from "../../store/slices/userProfileSlice";
 
 // Components
 import ProfileImage from "./AccountDetails/ProfileImage/ProfileImage";
@@ -21,21 +20,21 @@ import ErrorImage from "../../images/fallback/ERROR.webp";
 
 const UserProfile = () => {
 	const { status: authStatus } = useSelector(state => state.auth, shallowEqual);
-	const { profileMessage, status } = useSelector(state => state.userProfile, shallowEqual);
+	const {
+		profileMessage,
+		status,
+		username: userProfileUsername
+	} = useSelector(state => state.userProfile, shallowEqual);
 	const classes = useStyles();
 	const dispatch = useDispatch();
 	const userPostsRef = useRef();
 	const { username } = useParams();
 
 	useEffect(() => {
-		dispatch(resetUserProfile());
-	}, [dispatch]);
-
-	useEffect(() => {
-		if (authStatus === "succeeded") {
+		if (authStatus === "succeeded" && userProfileUsername !== username) {
 			dispatch(fetchUserProfile(username));
 		}
-	}, [dispatch, username, authStatus]);
+	}, [dispatch, username, authStatus, userProfileUsername]);
 
 	const scrollToPostHandler = () => {
 		userPostsRef.current.scrollIntoView({ behavior: "smooth" });

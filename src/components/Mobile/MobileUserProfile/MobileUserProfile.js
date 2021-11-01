@@ -25,7 +25,8 @@ const MobileUserProfile = () => {
 		populateFollowersStatus,
 		populateFollowingStatus,
 		followerAndFollowingQuery,
-		status
+		status,
+		username: userProfileUsername
 	} = useSelector(state => state.userProfile, shallowEqual);
 	const { status: authStatus } = useSelector(state => state.auth, shallowEqual);
 	const dispatch = useDispatch();
@@ -33,10 +34,13 @@ const MobileUserProfile = () => {
 	const { path } = useRouteMatch();
 
 	useEffect(() => {
-		if (authStatus === "succeeded" && status !== "succeeded") {
+		if (
+			authStatus === "succeeded" &&
+			(status !== "succeeded" || userProfileUsername !== username)
+		) {
 			dispatch(fetchUserProfile(username));
 		}
-	}, [dispatch, username, authStatus, status]);
+	}, [dispatch, username, authStatus, status, userProfileUsername]);
 
 	const followersSearchHandler = searchQuery => {
 		dispatch(searchPopulatedFollowers({ username, usernameQuery: searchQuery }));

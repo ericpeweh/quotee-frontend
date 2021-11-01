@@ -21,7 +21,7 @@ const QRScanner = () => {
 	};
 
 	const scanHandler = data => {
-		if (data && data.includes("https://quoteeid.netlify.app/")) {
+		if (data && data.includes("https://quoteequotes.xyz/")) {
 			const username = data.split("/")[3];
 			history.push(`/${username}`);
 		}

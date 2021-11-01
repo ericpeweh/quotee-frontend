@@ -78,8 +78,14 @@ const validator = quotes => {
 		return "Must not be less than 20 characters or more than 200 characters";
 	}
 
+	const alphanumericRegex = /^[a-zA-Z0-9_]*$/;
+	const isAlphanumeric = alphanumericRegex.test(quotes);
+
+	if (!isAlphanumeric && quotes.length >= 20) return true;
+
 	// Profanity validator
 	const currentQuotes = quotes;
+
 	const filteredQuotes = profanityFilter.clean(quotes);
 
 	if (currentQuotes !== filteredQuotes) {

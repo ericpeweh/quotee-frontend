@@ -37,7 +37,7 @@ const AccountTab = ({ currentTab, mobile }) => {
 	const qrCodeElement = (
 		<Grid item className={classes.qrCodeContainer}>
 			<QRCode
-				value={`https://quoteeid.netlify.app/${username}`}
+				value={`https://quoteequotes.xyz/${username}`}
 				renderAs="svg"
 				includeMargin
 				size={140}

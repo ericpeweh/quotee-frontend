@@ -6,8 +6,6 @@ import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { setSharePost, openShareModal } from "../../../../../store/slices/shareQuotesSlice";
 import { snackbarMessageChange, snackbarChange } from "../../../../../store/slices/modalSlice";
 import { archivePost, unarchivePost } from "../../../../../actions/posts";
-import { fetchUserProfile, fetchUserPosts } from "../../../../../actions/users";
-import { resetUserProfile } from "../../../../../store/slices/userProfileSlice";
 import {
 	confirmationChange,
 	confirmationPostIdChange
@@ -64,9 +62,6 @@ const QuoteHeader = ({ quotes, favorites, mobile, isDetailsPage, status }) => {
 
 	const scrollToTop = () => {
 		window.scrollTo(0, 0);
-		dispatch(resetUserProfile());
-		dispatch(fetchUserProfile(quotes.author));
-		dispatch(fetchUserPosts(quotes.author));
 	};
 
 	const editPostHandler = () => {
@@ -117,7 +112,7 @@ const QuoteHeader = ({ quotes, favorites, mobile, isDetailsPage, status }) => {
 				text: "Copy link",
 				action: () => {
 					navigator.clipboard.writeText(
-						`https://www.quotee.id/${quotes.author}/p/${quotes._id}?source=copy_link`
+						`https://quoteequotes.xyz/${quotes.author}/p/${quotes._id}?source=copy_link`
 					);
 					closeMenuHandler();
 					dispatch(snackbarMessageChange("Quotes link copied."));

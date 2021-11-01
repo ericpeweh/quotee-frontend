@@ -15,7 +15,12 @@ const useStyles = makeStyles(theme => ({
 		width: "100%",
 		borderRadius: "15px",
 		border: "1px solid rgba(0, 0, 0, 0.12)",
-		boxShadow: "0 3px 10px rgb(0 0 0 / 0.1)"
+		boxShadow: "0 3px 10px rgb(0 0 0 / 0.1)",
+		opacity: "1",
+		transition: "0.2s ease-out"
+	},
+	hide: {
+		opacity: "0.5 !important"
 	},
 	searchFormContainerMobile: {
 		height: "56px",

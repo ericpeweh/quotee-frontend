@@ -5,6 +5,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { auth, signOut } from "../../actions/auth";
 import { changeProfilePicture, deleteProfilePicture, followUser } from "../../actions/users";
 import { favoritePost, archivePost, unarchivePost } from "../../actions/posts";
+import { fetchNotifications } from "../../actions/users";
 
 const initialState = {
 	isLoggedIn: false,
@@ -17,6 +18,7 @@ const initialState = {
 	signOutStatus: "idle",
 	signOutLoading: false,
 	allowNotifications: false,
+	unreadNotifications: 0,
 	favoritedPosts: [],
 	archivedPosts: [],
 	followers: [],
@@ -48,13 +50,17 @@ const authSlice = createSlice({
 			state.archivedPosts = action.payload.archivedPosts;
 			state.followers = action.payload.followers;
 			state.following = action.payload.following;
+			state.unreadNotifications = action.payload.unreadNotifications;
 			state.isLoggedIn = true;
 			state.isLoading = false;
 		},
-		[auth.rejected]: state => {
+		[auth.rejected]: (state, { payload }) => {
 			state.status = "failed";
 			state.isLoggedIn = false;
 			state.isLoading = false;
+			if (payload.message === "Expired") {
+				localStorage.removeItem("jwt");
+			}
 		},
 		[signOut.pending]: state => {
 			state.signOutStatus = "loading";
@@ -73,6 +79,7 @@ const authSlice = createSlice({
 			state.archivedPosts = [];
 			state.followers = [];
 			state.following = [];
+			localStorage.removeItem("jwt");
 		},
 		[signOut.rejected]: state => {
 			state.signOutStatus = "failed";
@@ -94,7 +101,10 @@ const authSlice = createSlice({
 			state.archivedPosts = payload.archivedPosts;
 		},
 		[unarchivePost.fulfilled]: (state, action) => {
-			state.archivedPosts = action.payload;
+			state.archivedPosts = action.payload.archived;
+		},
+		[fetchNotifications.fulfilled]: (state, { payload }) => {
+			state.unreadNotifications = 0;
 		}
 	}
 });

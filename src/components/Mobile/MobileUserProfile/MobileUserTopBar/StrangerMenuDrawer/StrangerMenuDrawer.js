@@ -1,6 +1,11 @@
 // Dependencies
 import { useDispatch } from "react-redux";
 import { snackbarMessageChange, snackbarChange } from "../../../../../store/slices/modalSlice";
+import {
+	reportModalChange,
+	resetReport,
+	usernameChange
+} from "../../../../../store/slices/userReportSlice";
 
 // Components
 import {
@@ -19,7 +24,7 @@ import useStyles from "./styles";
 import FileCopyOutlinedIcon from "@material-ui/icons/FileCopyOutlined";
 import ErrorOutlineOutlinedIcon from "@material-ui/icons/ErrorOutlineOutlined";
 
-const StrangerMenuDrawer = ({ open, toggler }) => {
+const StrangerMenuDrawer = ({ open, toggler, username }) => {
 	const dispatch = useDispatch();
 	const classes = useStyles();
 
@@ -31,7 +36,9 @@ const StrangerMenuDrawer = ({ open, toggler }) => {
 	};
 
 	const reportAccountHandler = () => {
-		console.log("Report account!");
+		dispatch(resetReport());
+		dispatch(usernameChange(username));
+		dispatch(reportModalChange(true));
 		toggler(false)();
 	};
 

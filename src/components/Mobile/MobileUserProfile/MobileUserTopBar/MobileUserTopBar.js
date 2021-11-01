@@ -38,7 +38,9 @@ const MobileUserTopBar = () => {
 	return (
 		<>
 			{isUser && <MenuDrawer open={isMenuOpen} toggler={menuToggleHandler} />}
-			{!isUser && <StrangerMenuDrawer open={isMenuOpen} toggler={menuToggleHandler} />}
+			{!isUser && (
+				<StrangerMenuDrawer open={isMenuOpen} toggler={menuToggleHandler} username={username} />
+			)}
 			<Grid
 				container
 				className={classes.mobileTopNavbar}

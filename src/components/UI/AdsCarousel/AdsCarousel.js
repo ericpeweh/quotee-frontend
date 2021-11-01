@@ -27,33 +27,22 @@ const AdsCarousel = () => {
 		},
 		{
 			id: "quotee1",
-			title: "Quotee.id | Share your quotes",
-			text: "Buat quotesmu sendiri, bagikan dan motivasi orang banyak. Berkreasilah sebebasmu untuk mengungkapkan isi pikiran kedalam bentuk tulisan.",
-			image: banner2
+			title: "Quotee | Share your quotes",
+			text: "Create your own quotes, share and motivate people. Be as free as you can to express your thoughts in your quotes",
+			image: banner2,
+			url: "https://www.instagram.com/quoteequotes.xyz/"
 		}
 	];
 
+	const clickHandler = item => {
+		dispatch(adsCarouselChange(true));
+		dispatch(setCarousel({ title: item.title, text: item.text, image: item.image, url: item.url }));
+	};
+
 	return (
-		<Carousel
-			indicators={false}
-			navButtonsProps={{
-				style: {
-					height: "0.5rem",
-					width: "0.5rem"
-				}
-			}}
-		>
+		<Carousel indicators={false} className={classes.navButton}>
 			{items.map(item => (
-				<ButtonBase
-					key={item.id}
-					className={classes.buttonBase}
-					onClick={e => {
-						dispatch(adsCarouselChange(true));
-						dispatch(
-							setCarousel({ title: item.title, text: item.text, image: item.image, url: item.url })
-						);
-					}}
-				>
+				<ButtonBase key={item.id} className={classes.buttonBase} onClick={() => clickHandler(item)}>
 					<img src={item.image} alt="banner" className={classes.banner} />
 				</ButtonBase>
 			))}

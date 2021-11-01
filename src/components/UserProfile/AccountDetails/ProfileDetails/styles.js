@@ -64,7 +64,7 @@ const useStyles = makeStyles(theme => ({
 			justifyContent: "center"
 		}
 	},
-	[theme.breakpoints.down(623)]: {
+	[theme.breakpoints.down(600)]: {
 		followButtonContainer: {
 			order: 2
 		},

@@ -104,6 +104,7 @@ const loginRegisterSlice = createSlice({
 			state.passwordConfirm = "";
 			state.showPassword = false;
 			state.redirect = true;
+			localStorage.setItem("jwt", action.payload.token);
 		},
 		[signIn.rejected]: (state, action) => {
 			state.status = "failed";

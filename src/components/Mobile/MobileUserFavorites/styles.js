@@ -25,17 +25,15 @@ const useStyles = makeStyles(theme => ({
 		fontSize: "1.25rem",
 		margin: "8px 12px"
 	},
-	favoritesSubtitle: {
-		fontSize: "0.7rem",
-		textAlign: "center",
-		width: "100%",
-		color: theme.palette.type === "dark" ? "#f3f3f3" : theme.palette.text.primary
-	},
-	favoritesIcon: {
-		fontSize: "0.7rem"
-	},
 	favoritesContainer: {
-		paddingBottom: "40px"
+		paddingBottom: "40px",
+		flexDirection: "column",
+		[theme.breakpoints.down("xs")]: {
+			flex: 1
+		}
+	},
+	emptyFallback: {
+		flex: 1
 	},
 	cardContainer: {
 		width: "100%"

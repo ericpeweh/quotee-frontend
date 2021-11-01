@@ -36,7 +36,7 @@ const shareQuotesSlice = createSlice({
 			state.status = "loading";
 		},
 		[fetchShareQuotes.fulfilled]: (state, action) => {
-			state.status = "succedeed";
+			state.status = "succeeded";
 			state.quotes = action.payload.quotes;
 			state.author = action.payload.author;
 		},

@@ -1,9 +1,9 @@
 // Dependencies
 import { useSelector } from "react-redux";
+import { useHistory } from "react-router";
 
 // Components
 import { Box, Typography, List, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
-import { Link } from "react-router-dom";
 
 // Icons
 import HomeIcon from "@material-ui/icons/Home";
@@ -28,6 +28,7 @@ const icons = [
 const iconsSelected = [<HomeIcon />, <FormatQuoteIcon />, <GroupIcon />, <TurnedInIcon />];
 
 const ProfileMenu = ({ setNavigation, navigation }) => {
+	const history = useHistory();
 	const username = useSelector(state => state.auth.username);
 	const classes = useStyles();
 
@@ -46,10 +47,10 @@ const ProfileMenu = ({ setNavigation, navigation }) => {
 						button
 						key={text}
 						className={classes.listItem}
-						component={Link}
-						to={links[index]}
-						onClick={e => setNavigation(links[index])}
-						replace
+						onClick={e => {
+							setNavigation(links[index]);
+							history.push(links[index]);
+						}}
 					>
 						<ListItemIcon className={navigation === links[index] ? classes.selectedIcon : ""}>
 							{navigation === links[index] ? iconsSelected[index] : icons[index]}

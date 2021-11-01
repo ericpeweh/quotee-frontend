@@ -1,4 +1,5 @@
 // Dependencies
+import { useRef, useEffect, useState } from "react";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import { changeSearch, openSearchModal, closeSearchModal } from "../../../store/slices/searchSlice";
 
@@ -15,6 +16,9 @@ import AppsIcon from "@material-ui/icons/Apps";
 
 const SearchForm = ({ mobile, onSearch }) => {
 	const { searchQuery, isSearchModalOpen } = useSelector(state => state.search, shallowEqual);
+	const [hideSearchBar, setHideSearchBar] = useState(false);
+	const [focusSearchBar, setFocusSearchBar] = useState(false);
+	const paperRef = useRef();
 	const dispatch = useDispatch();
 	const classes = useStyles();
 
@@ -26,9 +30,22 @@ const SearchForm = ({ mobile, onSearch }) => {
 		dispatch(changeSearch(""));
 	};
 
+	useEffect(() => {
+		const scrollHandler = () => setHideSearchBar(window.scrollY > 50);
+
+		window.addEventListener("scroll", scrollHandler);
+
+		return () => window.removeEventListener("scroll", scrollHandler);
+	}, [focusSearchBar]);
+
 	return (
 		<>
-			<Paper className={mobile ? classes.searchFormContainerMobile : classes.searchFormContainer}>
+			<Paper
+				className={`${mobile ? classes.searchFormContainerMobile : classes.searchFormContainer} ${
+					hideSearchBar && !focusSearchBar ? classes.hide : ""
+				}`}
+				ref={paperRef}
+			>
 				<Grid container alignItems="center" justifyContent="space-between">
 					<Grid item md={11} xs={10}>
 						<SearchBar
@@ -36,6 +53,8 @@ const SearchForm = ({ mobile, onSearch }) => {
 							onRequestSearch={onSearch}
 							onCancelSearch={cancelSearchHandler}
 							onChange={searchQueryHandler}
+							onFocus={() => setFocusSearchBar(true)}
+							onBlur={() => setFocusSearchBar(false)}
 							value={searchQuery}
 							placeholder="Search quotes"
 						/>

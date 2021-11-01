@@ -4,7 +4,7 @@ import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { fetchNotifications } from "../../../actions/users";
 
 // Components
-import { Grid, Tooltip, IconButton } from "@material-ui/core";
+import { Grid, Tooltip, IconButton, Badge } from "@material-ui/core";
 
 // Icons
 import AddBoxOutlinedIcon from "@material-ui/icons/AddBoxOutlined";
@@ -17,6 +17,7 @@ import useStyles from "./styles";
 
 const Toolsbar = ({ onFullScreen, onNotificationClick }) => {
 	const { notifications, status } = useSelector(state => state.notifications, shallowEqual);
+	const { unreadNotifications } = useSelector(state => state.auth, shallowEqual);
 	const dispatch = useDispatch();
 	const classes = useStyles();
 
@@ -56,7 +57,13 @@ const Toolsbar = ({ onFullScreen, onNotificationClick }) => {
 				<Grid item>
 					<Tooltip title="Notifications">
 						<IconButton onClick={notificationClickHandler}>
-							<NotificationsNoneOutlinedIcon />
+							{unreadNotifications ? (
+								<Badge badgeContent={unreadNotifications} color="primary">
+									<NotificationsNoneOutlinedIcon />
+								</Badge>
+							) : (
+								<NotificationsNoneOutlinedIcon />
+							)}
 						</IconButton>
 					</Tooltip>
 				</Grid>

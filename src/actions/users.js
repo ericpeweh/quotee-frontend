@@ -315,3 +315,27 @@ export const fetchNotifications = createAsyncThunk(
 		}
 	}
 );
+
+export const fetchMoreNotifications = createAsyncThunk(
+	"notifications/fetchMoreNotifications",
+	async (current, { rejectWithValue }) => {
+		try {
+			const response = await API.fetchNotifications(current);
+			return response.data;
+		} catch (error) {
+			return rejectWithValue(error.response.data);
+		}
+	}
+);
+
+export const reportUser = createAsyncThunk(
+	"userReport/reportUser",
+	async (reportData, { rejectWithValue }) => {
+		try {
+			const response = await API.reportUser(reportData);
+			return response.data;
+		} catch (error) {
+			return rejectWithValue(error.response.data);
+		}
+	}
+);

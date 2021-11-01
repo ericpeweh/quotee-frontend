@@ -9,7 +9,8 @@ const useStyles = makeStyles(theme => ({
 		width: 300
 	},
 	statusText: {
-		fontSize: "1.1rem"
+		fontSize: "1.1rem",
+		color: theme.palette.type === "dark" ? "#f3f3f3 !important" : theme.palette.text.primary
 	}
 }));
 

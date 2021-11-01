@@ -9,6 +9,10 @@ const useStyles = makeStyles(theme => ({
 			paddingTop: 0
 		}
 	},
+	loadingMoreQuotes: {
+		backgroundColor: theme.palette.type === "dark" ? "#545454" : "#f3f3f3",
+		padding: 15
+	},
 	masonryGrid: {
 		display: "flex",
 		width: "100%",
@@ -20,7 +24,7 @@ const useStyles = makeStyles(theme => ({
 			paddingLeft: 0,
 			paddingRight: 0
 		},
-		[theme.breakpoints.down("xs")]: {
+		[theme.breakpoints.down("sm")]: {
 			"& > div:nth-child(1)": {
 				paddingRight: 0
 			}
@@ -36,6 +40,12 @@ const useStyles = makeStyles(theme => ({
 		[theme.breakpoints.down("xs")]: {
 			"& > div": {
 				marginTop: 0
+			},
+			"& > div:last-child": {
+				marginBottom: 0
+			},
+			"& > div:last-child div": {
+				marginBottom: 0
 			}
 		}
 	}

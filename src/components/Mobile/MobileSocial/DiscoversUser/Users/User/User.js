@@ -1,7 +1,5 @@
 // Dependencies
 import { useHistory } from "react-router";
-import { useDispatch } from "react-redux";
-import { fetchUserProfile, fetchUserPosts } from "../../../../../../actions/users";
 
 // Components
 import { Avatar, Grid, Typography, ButtonBase } from "@material-ui/core";
@@ -15,12 +13,10 @@ import useStyles from "./styles";
 const User = ({ index, user }) => {
 	const history = useHistory();
 	const classes = useStyles();
-	const dispatch = useDispatch();
 
 	const clickHandler = () => {
 		window.scrollTo(0, 0);
-		dispatch(fetchUserProfile(user.username));
-		dispatch(fetchUserPosts(user.username));
+
 		history.push(`/${user.username}`);
 	};
 

@@ -16,10 +16,11 @@ const useStyles = makeStyles(theme => ({
 	},
 	[theme.breakpoints.down("xs")]: {
 		searchContainer: {
-			marginTop: "56px",
+			marginTop: 56,
+			marginBottom: 56,
 			marginLeft: 0,
 			width: "100%",
-			padding: "0"
+			padding: 0
 		},
 		searchResultText: {
 			textAlign: "center"

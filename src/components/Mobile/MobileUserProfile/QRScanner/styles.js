@@ -2,19 +2,18 @@ import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
 	scannerContainer: {
-		paddingTop: 56,
 		display: "flex",
 		justifyContent: "center",
 		alignItems: "center",
-		flexDirection: "column"
+		flexDirection: "column",
+		minHeight: "100vh",
+		backgroundColor: theme.palette.type === "dark" ? "#5c5c5c" : "#f3f3f3"
 	},
 	QRReaderContainer: {
 		width: "100%"
 	},
 	QRReader: {
 		width: "80%",
-		marginTop: theme.spacing(15),
-		margin: "auto",
 		borderRadius: "15px",
 		"& > section": {
 			borderRadius: 15

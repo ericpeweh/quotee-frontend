@@ -26,7 +26,7 @@ const EditDisplay = ({ quotesDisplay }) => {
 					<br />
 					<span className={classes.quotesAuthor}>{username}</span>
 				</div>
-				<div className={classes.watermark}>www.quotee.id</div>
+				<div className={classes.watermark}>quoteequotes.xyz</div>
 			</Grid>
 		</Grid>
 	);

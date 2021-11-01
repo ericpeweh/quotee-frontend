@@ -47,7 +47,12 @@ const MobileUserPosts = React.forwardRef((props, ref) => {
 					hasMore={hasMorePosts}
 					loader={
 						<Grid container justifyContent="center" alignItems="center">
-							<Typography color="primary" variant="body2" component="div">
+							<Typography
+								color="primary"
+								variant="body2"
+								component="div"
+								className={classes.loadingMorePosts}
+							>
 								<CircularProgress size={10} component="span" />
 								&nbsp; Loading more posts
 							</Typography>
@@ -79,7 +84,6 @@ const MobileUserPosts = React.forwardRef((props, ref) => {
 								)}
 							</Grid>
 						))}
-					;
 				</InfiniteScroll>
 			),
 		// eslint-disable-next-line react-hooks/exhaustive-deps

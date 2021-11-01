@@ -58,10 +58,11 @@ const useStyles = makeStyles(theme => ({
 	},
 	errorText: {
 		fontWeight: 600,
-		fontSize: "1.1rem"
+		fontSize: "1.1rem",
+		color: theme.palette.type === "dark" ? "#f3f3f3" : theme.palette.text.primary
 	},
 	errorContainer: {
-		height: "100vh"
+		minHeight: "100vh"
 	},
 	wordWrap: {
 		wordWrap: "break-word"

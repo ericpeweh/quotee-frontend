@@ -25,10 +25,10 @@ const Archived = ({ mobile }) => {
 	const isLoading = status === "loading";
 
 	useEffect(() => {
-		if (username) {
+		if (username && status !== "succeeded") {
 			dispatch(fetchUserArchived(username));
 		}
-	}, [dispatch, username]);
+	}, [dispatch, username, status]);
 
 	const breakpoints = {
 		default: 2,

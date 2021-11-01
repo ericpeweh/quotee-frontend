@@ -8,6 +8,7 @@ import MediaQuery from "react-responsive";
 import { auth } from "./actions/auth";
 import { promptChange, installableChange, installedChange } from "./store/slices/pwaSlice";
 import { subscribeNotifications } from "./actions/pwa";
+import { fetchTempPosts } from "./actions/posts";
 
 // Utils
 import { toggleFullScreen } from "./utils/toggleFullscreen";
@@ -48,6 +49,7 @@ import BottomSnackbar from "./components/UI/BottomSnackbar/BottomSnackbar";
 import CenterModalSearch from "./components/UI/CenterModalSearch/CenterModalSearch";
 import ConfirmationModal from "./components/UI/ConfirmationModal/ConfirmationModal";
 import ReportModal from "./components/UI/ReportModal/ReportModal";
+import UserReportModal from "./components/UI/UserReportModal/UserReportModal";
 import { ThemeProvider } from "@material-ui/styles";
 import ResetPassword from "./components/ResetPassword/ResetPassword";
 
@@ -165,12 +167,20 @@ const App = () => {
 		}
 	}, [dispatch, history, isLoggedIn, isLoading, status, location]);
 
+	// FETCH NEW POSTS EVERY 5 MINUTES
+	useEffect(() => {
+		const fetchPosts = setInterval(() => dispatch(fetchTempPosts()), 60000 * 5);
+
+		return () => clearInterval(fetchPosts);
+	}, [dispatch]);
+
 	return (
 		<ThemeProvider theme={userTheme}>
 			<CenterSpinner open={isLoading} />
 			<BottomSnackbar />
 			<ConfirmationModal />
 			<ReportModal />
+			<UserReportModal />
 			<MediaQuery minWidth={600}>
 				{isLoggedIn && location.pathname !== "/login" && location.pathname !== "/register" && (
 					<NavBar />

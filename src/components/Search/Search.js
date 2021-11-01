@@ -1,6 +1,6 @@
 // Dependencies
 import moment from "moment";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import { useLocation, useHistory } from "react-router";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import { fetchPostsBySearchQuotes, fetchPostsByAdvancedSearch } from "../../actions/posts";
@@ -22,11 +22,14 @@ import SearchResult from "./SearchResult/SearchResult";
 import useStyles from "./styles";
 
 const Search = ({ mobile }) => {
-	const { searchStatus, posts, searchQuery } = useSelector(state => state.search, shallowEqual);
+	const {
+		searchStatus,
+		posts: searchResults,
+		searchQuery
+	} = useSelector(state => state.search, shallowEqual);
 	const history = useHistory();
 	const dispatch = useDispatch();
 	const location = useLocation();
-	const searchResults = posts;
 	const classes = useStyles();
 
 	// Get URL Params
@@ -43,6 +46,17 @@ const Search = ({ mobile }) => {
 	const isAdvancedSearch = advancedSearch === "true";
 	const isLoading = searchStatus === "loading";
 
+	const queryData = useMemo(
+		() => ({
+			quotes: quotesQuery || "",
+			author: authorQuery || "",
+			tags: tagsQuery || "",
+			fromDate: fromDateQuery || "01/01/2021",
+			toDate: toDateQuery || moment.utc().format("DD/MM/YYYY")
+		}),
+		[quotesQuery, authorQuery, tagsQuery, fromDateQuery, toDateQuery]
+	);
+
 	useEffect(() => {
 		// Set search slice value from query
 		dispatch(changeSearch(quotesQuery || ""));
@@ -53,19 +67,25 @@ const Search = ({ mobile }) => {
 
 		// Do search automatically
 		if (!isAdvancedSearch) {
-			dispatch(fetchPostsBySearchQuotes({ quotes: quotesQuery }));
+			dispatch(fetchPostsBySearchQuotes({ query: { quotes: quotesQuery } }));
 		} else {
 			dispatch(
 				fetchPostsByAdvancedSearch({
-					quotes: quotesQuery || "",
-					author: authorQuery || "",
-					tags: tagsQuery || "",
-					fromDate: fromDateQuery || "01/01/2021",
-					toDate: toDateQuery || moment.utc().format("DD/MM/YYYY")
+					query: queryData
 				})
 			);
 		}
-	}, [dispatch, quotesQuery, authorQuery, tagsQuery, fromDateQuery, toDateQuery, isAdvancedSearch]);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [
+		dispatch,
+		quotesQuery,
+		authorQuery,
+		tagsQuery,
+		fromDateQuery,
+		toDateQuery,
+		isAdvancedSearch,
+		queryData
+	]);
 
 	const searchHandler = () => {
 		history.push(`/p/search?quotes=${searchQuery}&advanced=false`);
@@ -98,7 +118,12 @@ const Search = ({ mobile }) => {
 						{searchResultsText}
 					</Typography>
 				)}
-				<SearchResult mobile={mobile} results={searchResults} status={searchStatus} />
+				<SearchResult
+					mobile={mobile}
+					results={searchResults}
+					status={searchStatus}
+					queryData={queryData}
+				/>
 			</Grid>
 		</>
 	);

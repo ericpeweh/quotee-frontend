@@ -136,7 +136,9 @@ const LoginForm = ({ mobile }) => {
 							label="Username or Email"
 							variant="outlined"
 							value={username}
-							onChange={event => dispatch(usernameChange(event.target.value))}
+							onChange={event =>
+								dispatch(usernameChange(event.target.value.replace(/[^a-zA-Z0-9@. ]/g, "")))
+							}
 							size="small"
 							onKeyPress={e => {
 								if (e.code === "Enter") {
@@ -193,7 +195,7 @@ const LoginForm = ({ mobile }) => {
 									disabled={username === "" || password === ""}
 									onClick={submitHandler}
 								>
-									Login
+									{status === "loading" ? "Loading..." : "Login"}
 								</Button>
 							</Grid>
 						</>

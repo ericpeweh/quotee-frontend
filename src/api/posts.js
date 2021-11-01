@@ -1,11 +1,20 @@
 // Dependencies
 import axios from "axios";
+import { BASE_URL } from "./BASEURL";
 
 // Base URL
 const API = axios.create({
-	baseURL: "https://quoteeapi.herokuapp.com",
+	baseURL: BASE_URL,
 	withCredentials: true,
 	credentials: "include"
+});
+
+API.interceptors.request.use(req => {
+	if (localStorage.getItem("jwt")) {
+		req.headers.Authorization = `Bearer ${localStorage.getItem("jwt")}`;
+	}
+
+	return req;
 });
 
 // Get all posts
@@ -29,13 +38,14 @@ export const searchLikes = ({ username, postId }) =>
 	API.get(`/p/${postId}/likes?username=${username}`);
 
 // Search posts by quotes
-export const fetchPostsBySearchQuotes = query => API.get(`/p/search?quotes=${query.quotes}`);
+export const fetchPostsBySearchQuotes = ({ query, current = 0 }) =>
+	API.get(`/p/search?quotes=${query.quotes}&current=${current}`);
 
 // Search posts (advanced search)
-export const fetchPostsByAdvancedSearch = query => {
+export const fetchPostsByAdvancedSearch = ({ query, current = 0 }) => {
 	const { quotes, author, tags, fromDate, toDate } = query;
 	return API.get(
-		`/p/search?quotes=${quotes}&author=${author}&tags=${tags}&fromDate=${fromDate}&toDate=${toDate}`
+		`/p/search?quotes=${quotes}&author=${author}&tags=${tags}&fromDate=${fromDate}&toDate=${toDate}&current=${current}`
 	);
 };
 
@@ -65,3 +75,6 @@ export const unarchivePost = postId => API.patch(`/p/${postId}/unarchivePost`);
 
 // Report post
 export const reportPost = ({ code, postId }) => API.patch(`/p/${postId}/report?code=${code}`);
+
+// Fetch temp posts
+export const fetchTempPosts = currentLength => API.get(`/p?quotes=${currentLength || 0}`);

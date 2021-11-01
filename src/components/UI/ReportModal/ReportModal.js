@@ -12,7 +12,8 @@ import {
 	ListItem,
 	ListItemText,
 	CircularProgress,
-	Typography
+	Typography,
+	Button
 } from "@material-ui/core";
 
 // Styles
@@ -69,6 +70,9 @@ const ReportModal = () => {
 							</ListItem>
 						))}
 					</List>
+					<Button className={classes.cancelButton} onClick={closeHandler}>
+						Cancel
+					</Button>
 				</>
 			)}
 			{isLoading && (

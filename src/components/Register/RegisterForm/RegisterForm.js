@@ -1,5 +1,6 @@
 // Dependencies
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
+import { useHistory } from "react-router";
 import {
 	usernameChange,
 	emailChange,
@@ -38,6 +39,7 @@ const RegisterForm = ({ mobile }) => {
 		message,
 		isModalOpen
 	} = useSelector(state => state.loginRegister, shallowEqual);
+	const history = useHistory();
 	const theme = useSelector(state => state.theme.theme);
 	const dispatch = useDispatch();
 	const classes = useStyles();
@@ -59,7 +61,12 @@ const RegisterForm = ({ mobile }) => {
 		<CenterModal
 			text={message}
 			type={status === "failed" ? "error" : "success"}
-			onClose={() => dispatch(modalClose())}
+			onClose={() => {
+				dispatch(modalClose());
+				if (status === "succeeded") {
+					history.replace("/login");
+				}
+			}}
 			open={isModalOpen}
 		/>
 	);
@@ -119,7 +126,11 @@ const RegisterForm = ({ mobile }) => {
 							label="Username"
 							variant="outlined"
 							value={username}
-							onChange={event => dispatch(usernameChange(event.target.value))}
+							onChange={event =>
+								dispatch(
+									usernameChange(event.target.value.toLowerCase().replace(/[^a-zA-Z0-9 ]/g, ""))
+								)
+							}
 							size="small"
 							className={classes.textField}
 							fullWidth

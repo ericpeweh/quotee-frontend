@@ -14,9 +14,6 @@ import useStyles from "./styles";
 // Images
 import FavoritesFallback from "../../../images/fallback/FAVORITES.webp";
 
-// Icons
-import BookmarkIcon from "@material-ui/icons/Bookmark";
-
 const MobileUserFavorites = () => {
 	const { posts: quotes, status } = useSelector(state => state.userFavorites, shallowEqual);
 	const username = useSelector(state => state.auth.username);
@@ -38,10 +35,6 @@ const MobileUserFavorites = () => {
 		favoritesContent = (
 			<>
 				<FallbackImage image={FavoritesFallback} text="You don't have any favorites yet." />
-				<Typography className={classes.favoritesSubtitle}>
-					To favorite a quotes, click the " Add to favorites{" "}
-					<BookmarkIcon className={classes.favoritesIcon} />" button
-				</Typography>
 			</>
 		);
 	} else {
@@ -75,7 +68,7 @@ const MobileUserFavorites = () => {
 				alignItems="center"
 				direction="column"
 			>
-				<Grid item container className={classes.favoritesContainer}>
+				<Grid item container className={classes.favoritesContainer} direction="column">
 					{favoritesContent}
 				</Grid>
 			</Grid>

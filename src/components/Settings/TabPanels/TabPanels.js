@@ -15,14 +15,15 @@ import useStyles from "./styles";
 
 const TabPanels = ({ currentTab, mobile }) => {
 	const username = useSelector(state => state.auth.username);
+	const status = useSelector(state => state.settings.status);
 	const dispatch = useDispatch();
 	const classes = useStyles();
 
 	useEffect(() => {
-		if (username) {
+		if (username && status !== "succeeded") {
 			dispatch(fetchSettings(username));
 		}
-	}, [dispatch, username]);
+	}, [dispatch, username, status]);
 
 	return (
 		<Grid item container xs={12} md={10} className={classes.tabsContainer}>

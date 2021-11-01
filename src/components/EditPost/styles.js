@@ -8,6 +8,7 @@ const useStyles = makeStyles(theme => ({
 		width: `calc(100% - ${drawerWidth}px)`,
 		padding: theme.spacing(3),
 		justifyContent: "flex-start",
+		minHeight: "100vh",
 		backgroundColor: theme.palette.type === "dark" ? "#5c5c5c" : "#f3f3f3",
 		[theme.breakpoints.down("xs")]: {
 			padding: theme.spacing(2),

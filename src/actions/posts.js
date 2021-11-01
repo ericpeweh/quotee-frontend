@@ -52,9 +52,21 @@ export const fetchEditPost = createAsyncThunk(
 
 export const fetchPostsBySearchQuotes = createAsyncThunk(
 	"search/fetchPostsBySearchQuotes",
-	async (query, { rejectWithValue }) => {
+	async (searchData, { rejectWithValue }) => {
 		try {
-			const response = await API.fetchPostsBySearchQuotes(query);
+			const response = await API.fetchPostsBySearchQuotes(searchData);
+			return response.data;
+		} catch (error) {
+			return rejectWithValue(error.response.data);
+		}
+	}
+);
+
+export const fetchMorePostsBySearchQuotes = createAsyncThunk(
+	"search/fetchMorePostsBySearchQuotes",
+	async (searchData, { rejectWithValue }) => {
+		try {
+			const response = await API.fetchPostsByAdvancedSearch(searchData);
 			return response.data;
 		} catch (error) {
 			return rejectWithValue(error.response.data);
@@ -64,9 +76,9 @@ export const fetchPostsBySearchQuotes = createAsyncThunk(
 
 export const fetchPostsByAdvancedSearch = createAsyncThunk(
 	"search/fetchPostsByAdvancedSearch",
-	async (query, { rejectWithValue }) => {
+	async (searchData, { rejectWithValue }) => {
 		try {
-			const response = await API.fetchPostsByAdvancedSearch(query);
+			const response = await API.fetchPostsByAdvancedSearch(searchData);
 			return response.data;
 		} catch (error) {
 			return rejectWithValue(error.response.data);
@@ -213,6 +225,18 @@ export const fetchTopQuotes = createAsyncThunk(
 	async (payload, { rejectWithValue }) => {
 		try {
 			const response = await API.fetchTopQuotes();
+			return response.data;
+		} catch (error) {
+			return rejectWithValue(error.response.data);
+		}
+	}
+);
+
+export const fetchTempPosts = createAsyncThunk(
+	"posts/fetchTempPosts",
+	async (payload, { rejectWithValue }) => {
+		try {
+			const response = await API.fetchTempPosts();
 			return response.data;
 		} catch (error) {
 			return rejectWithValue(error.response.data);

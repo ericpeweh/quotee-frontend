@@ -13,10 +13,10 @@ const useStyles = makeStyles(theme => ({
 		}
 	},
 	cancelButton: {
-		backgroundColor: theme.palette.type === "dark" ? "#464646 !important" : "#c2c2c2 !important",
+		backgroundColor: theme.palette.type === "dark" ? "#5c5c5c  !important" : "#c2c2c2 !important",
 		borderRadius: 15,
 		minWidth: "30%",
-		color: theme.palette.type === "dark" ? "#464646" : "#f3f3f3",
+		color: theme.palette.type === "dark" ? "#f3f3f3" : theme.palette.text.primary,
 		"&:hover": {
 			backgroundColor: theme.palette.type === "dark" ? "#545454 !important" : "#bdbdbd !important"
 		},
@@ -31,22 +31,21 @@ const useStyles = makeStyles(theme => ({
 		}
 	},
 	deleteButton: {
-		backgroundColor: `${theme.palette.primary.main} !important`,
-		color: theme.palette.type === "dark" ? "#464646" : "#f3f3f3",
+		backgroundColor: `${theme.palette.error.main} !important`,
+		color: "#f3f3f3 !important",
 		borderRadius: 15,
 		minWidth: "30%",
 		"&:hover": {
-			backgroundColor: theme.palette.type === "dark" ? "#545454 !important" : "#bdbdbd !important"
+			backgroundColor: `${theme.palette.error.dark} !important`
 		},
 		[theme.breakpoints.down("xs")]: {
 			borderRadius: "0 0 15px 15px",
 			minWidth: "100%",
-			backgroundColor: theme.palette.type === "dark" ? "#464646 !important" : "#c2c2c2 !important",
+			backgroundColor: `${theme.palette.error.main} !important`,
 			"&:hover": {
 				backgroundColor: theme.palette.type === "dark" ? "#545454 !important" : "#bdbdbd !important"
 			},
 			borderTop: "1px solid rgba(255,255,255,0.1)",
-			color: theme.palette.type === "dark" ? "#f3f3f3" : theme.palette.error.primary,
 			marginLeft: "0 !important"
 		}
 	}

@@ -26,7 +26,7 @@ const Draft = ({ mobile }) => {
 	const drafts = [];
 	const keys = Object.keys(localStorage);
 	keys.forEach(key => {
-		if (key !== "theme") {
+		if (key !== "theme" && key !== "jwt") {
 			drafts.push({ ...JSON.parse(localStorage.getItem(key)), key });
 		}
 	});

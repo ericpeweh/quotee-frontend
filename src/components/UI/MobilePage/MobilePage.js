@@ -20,41 +20,44 @@ const MobilePage = ({ title, users, onSearch, status, searchQuery, onChangeQuery
 	return (
 		<>
 			<TopBar title={title} />
-			{!isLoading && (
-				<ScrollContainer>
-					<SearchBar
-						className={classes.searchBar}
-						onRequestSearch={onSearch}
-						value={searchQuery}
-						onChange={queryChangeHandler}
-						onCancelSearch={() => queryChangeHandler("")}
-					/>
+			<ScrollContainer>
+				<SearchBar
+					className={classes.searchBar}
+					onRequestSearch={onSearch}
+					value={searchQuery}
+					onChange={queryChangeHandler}
+					onCancelSearch={() => queryChangeHandler("")}
+				/>
+				{isLoading && (
+					<Grid
+						container
+						justifyContent="center"
+						alignItems="center"
+						className={classes.spinnerContainer}
+					>
+						<Grid item className={classes.spinner}>
+							<CircularProgress color="primary" />
+						</Grid>
+					</Grid>
+				)}
+				{!isLoading && users.length !== 0 && (
 					<Grid item className={classes.usersContainer}>
-						{!isLoading &&
-							users.length !== 0 &&
-							users.map((user, index) => (
-								<UserSuggestion key={user.username || index} user={user} />
-							))}
+						{users.map((user, index) => (
+							<UserSuggestion key={user.username || index} user={user} />
+						))}
 					</Grid>
-				</ScrollContainer>
-			)}
-			{!isLoading && users.length === 0 && (
-				<Typography variant="body2" className={classes.noUserFound}>
-					No user found.
-				</Typography>
-			)}
-			{isLoading && (
-				<Grid
-					container
-					justifyContent="center"
-					alignItems="center"
-					className={classes.spinnerContainer}
-				>
-					<Grid item>
-						<CircularProgress color="primary" />
-					</Grid>
-				</Grid>
-			)}
+				)}
+				{!isLoading && searchQuery && users.length === 0 && (
+					<Typography variant="body2" className={classes.noUserFound}>
+						No user found.
+					</Typography>
+				)}
+				{!isLoading && !searchQuery && users.length === 0 && (
+					<Typography variant="body2" className={classes.noUserFound}>
+						{`No ${title.toLowerCase()} yet.`}
+					</Typography>
+				)}
+			</ScrollContainer>
 		</>
 	);
 };

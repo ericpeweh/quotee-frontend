@@ -3,6 +3,7 @@ import moment from "moment";
 import {
 	fetchPostsBySearchQuotes,
 	fetchPostsByAdvancedSearch,
+	fetchMorePostsBySearchQuotes,
 	likePost
 } from "../../actions/posts";
 
@@ -12,6 +13,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
 	posts: [],
 	searchStatus: "idle",
+	hasMore: false,
 	searchQuery: "",
 	authorQuery: "",
 	tagsQuery: [],
@@ -66,7 +68,8 @@ const searchSlice = createSlice({
 		},
 		[fetchPostsBySearchQuotes.fulfilled]: (state, action) => {
 			state.searchStatus = "succeeded";
-			state.posts = action.payload;
+			state.posts = action.payload.posts;
+			state.hasMore = action.payload.hasMore;
 		},
 		[fetchPostsBySearchQuotes.rejected]: state => {
 			state.searchStatus = "failed";
@@ -76,15 +79,21 @@ const searchSlice = createSlice({
 		},
 		[fetchPostsByAdvancedSearch.fulfilled]: (state, action) => {
 			state.searchStatus = "succeeded";
-			state.posts = action.payload;
+			state.posts = action.payload.posts;
+			state.hasMore = action.payload.hasMore;
 		},
 		[fetchPostsByAdvancedSearch.rejected]: state => {
 			state.searchStatus = "failed";
 		},
+		[fetchMorePostsBySearchQuotes.fulfilled]: (state, action) => {
+			state.searchStatus = "succeeded";
+			state.posts.push(...action.payload.posts);
+			state.hasMore = action.payload.hasMore;
+		},
 		[likePost.fulfilled]: (state, action) => {
 			state.posts = state.posts.map(post =>
-				post._id === action.payload._id
-					? { ...action.payload, profilePicture: post.profilePicture }
+				post._id === action.payload.updatedPost._id
+					? { ...action.payload.updatedPost, profilePicture: post.profilePicture }
 					: post
 			);
 		}

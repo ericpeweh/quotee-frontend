@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core";
 const useStyles = makeStyles(theme => ({
 	followButton: {
 		width: "85%",
-		color: "#f3f3f3",
+		color: theme.palette.type === "dark" ? "#f3f3f3" : theme.palette.primary.main,
 		marginTop: theme.spacing(1.5),
 		marginBottom: theme.spacing(1),
 		borderRadius: "15px",

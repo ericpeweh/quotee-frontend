@@ -67,7 +67,7 @@ const PreferencesTab = ({ currentTab }) => {
 					checked={pushNotifications}
 				/>
 				<Typography variant="body2" className={classes.note}>
-					*Note: please alllow push notification.
+					*Note: please allow push notification.
 				</Typography>
 				<Togglers
 					title="Dark Mode"

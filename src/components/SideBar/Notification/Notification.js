@@ -1,7 +1,7 @@
 // Dependencies
 import moment from "moment";
 import { shallowEqual, useSelector, useDispatch } from "react-redux";
-import { fetchNotifications } from "../../../actions/users";
+import { fetchMoreNotifications } from "../../../actions/users";
 
 // Components
 import NotificationItem from "./NotificationItem/NotificationItem";
@@ -21,7 +21,7 @@ const Notification = ({ isOpen, onNotificationClick }) => {
 	const isLoading = status === "loading";
 
 	const loadMoreHandler = () => {
-		dispatch(fetchNotifications(notifications.length));
+		dispatch(fetchMoreNotifications(notifications.length));
 	};
 
 	return (
@@ -49,7 +49,11 @@ const Notification = ({ isOpen, onNotificationClick }) => {
 						date={moment(notification.createdAt).fromNow()}
 						notificationAvatar={notification.profilePicture}
 						name={`${notification.name},`}
-						description={notification.description}
+						description={
+							notification.description.length > 40
+								? notification.description?.substring(0, 40) + "..."
+								: notification.description
+						}
 						url={notification.url}
 						announcer={notification.announcer}
 					/>

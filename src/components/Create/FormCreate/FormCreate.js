@@ -186,7 +186,12 @@ const FormCreate = ({ onChangeQuotes, mobile }) => {
 							fullWidth
 							blurBehavior="add"
 							onBlur={() => dispatch(tagsBlur())}
-							onAdd={tag => dispatch(tagsChange(tag))}
+							onAdd={tag => {
+								const cleanedTag = tag.replace(/[^a-zA-Z0-9 ]/g, "");
+								if (cleanedTag) {
+									dispatch(tagsChange(cleanedTag));
+								}
+							}}
 							onDelete={tag => dispatch(tagsDelete(tag))}
 							value={tags}
 							{...tagsInputProps}

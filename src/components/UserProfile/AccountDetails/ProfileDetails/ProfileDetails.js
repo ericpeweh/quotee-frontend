@@ -1,10 +1,15 @@
 // Dependencies
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { shallowEqual, useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { snackbarChange, snackbarMessageChange } from "../../../../store/slices/modalSlice";
 import { followUser } from "../../../../actions/users";
+import {
+	reportModalChange,
+	resetReport,
+	usernameChange
+} from "../../../../store/slices/userReportSlice";
 
 // Components
 import MenuElement from "../../../UI/MenuElement/MenuElement";
@@ -27,11 +32,19 @@ const ProfileDetails = () => {
 	} = useSelector(state => state.auth, shallowEqual);
 	const [isMoreMenuOpen, setIsMoreMenuOpen] = useState(null);
 	const [following, setFollowing] = useState(userFollowing);
+
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const classes = useStyles();
 
-	const followed = following.find(follow => follow === userId);
+	const followed = following.find(follow => {
+		return follow === userId;
+	});
+
+	useEffect(() => {
+		setFollowing(userFollowing);
+	}, [userFollowing]);
+
 	const isFollowingYou = followers.find(follow => follow === userId);
 
 	const isLoading = status === "loading";
@@ -70,8 +83,12 @@ const ProfileDetails = () => {
 	if (authUsername !== username) {
 		listActions.unshift({
 			text: "Report User",
-			action: () => history.push(`/${username}/report`),
-			color: "error"
+			action: () => {
+				dispatch(resetReport());
+				dispatch(usernameChange(username));
+				dispatch(reportModalChange(true));
+			},
+			color: "primary"
 		});
 	}
 

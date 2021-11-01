@@ -12,14 +12,16 @@ const useStyles = makeStyles(theme => ({
 		height: "40px"
 	},
 	spinnerContainer: {
-		height: "100vh",
-		paddingTop: "56px",
+		flex: 1,
 		paddingBottom: "56px",
 		backgroundColor: theme.palette.type === "dark" ? "#545454" : "#f3f3f3"
 	},
+	spinner: {},
 	noUserFound: {
 		textAlign: "center",
-		marginTop: "-50px"
+		flex: 1,
+		color: theme.palette.type === "dark" ? "#f3f3f3" : theme.palette.text.primary,
+		paddingTop: 10
 	}
 }));
 

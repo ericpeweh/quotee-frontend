@@ -1,25 +1,43 @@
-// Dependencies
-import { useMediaQuery } from "react-responsive";
+// Dependenciess
+import { shallowEqual, useSelector } from "react-redux";
 
 // Components
-import { Grid } from "@material-ui/core";
+import { Grid, CircularProgress } from "@material-ui/core";
 
 // Styles
 import useStyles from "./styles";
 
 const ShareDisplay = () => {
+	const { status } = useSelector(state => state.canvas, shallowEqual);
 	const classes = useStyles();
-	// Media queries for responsive
-	const isSmallerScreen = useMediaQuery({ maxWidth: 1270 });
-	const isTabletScreen = useMediaQuery({ maxWidth: 930 });
-	const isMobile = useMediaQuery({ maxWidth: 820 });
+
+	const isLoading = status === "loading";
 
 	return (
-		<Grid container item xs={isSmallerScreen ? (isTabletScreen ? (isMobile ? 12 : 7) : 6) : 4}>
+		<Grid
+			container
+			justifyContent="center"
+			direction="row"
+			alignItems="center"
+			className={classes.shareDisplay}
+		>
 			<Grid item className={classes.canvasContainer}>
+				{isLoading && (
+					<Grid
+						container
+						direction="column"
+						justifyContent="center"
+						alignItems="center"
+						className={classes.spinnerContainer}
+					>
+						<CircularProgress color="secondary" className={classes.spinner} />
+						Loading...
+					</Grid>
+				)}
 				<canvas id="canvas" width="1200" height="1600" className={classes.canvas}></canvas>
 			</Grid>
 		</Grid>
 	);
 };
+
 export default ShareDisplay;

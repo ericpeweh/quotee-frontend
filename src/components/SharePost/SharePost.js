@@ -1,106 +1,265 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 // Dependencies
-import { useEffect, useCallback } from "react";
-import { fabric } from "fabric";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import {
-	changeCanvas,
-	changeCanvasImage,
-	changeQuotes,
-	changeAuthor
-} from "../../store/slices/canvasSlice";
-import { useParams } from "react-router";
+import { useState, useEffect } from "react";
 import { fetchShareQuotes } from "../../actions/share";
-
-// Utils
-import {
-	initCanvasImage,
-	initCanvasText,
-	initAuthorText,
-	initWatermark,
-	resetCanvas
-} from "../../utils/canvasEditor";
-import { checkImageUrl } from "../../utils/checkImageUrl";
+import { useParams, useHistory } from "react-router";
+import { shallowEqual, useSelector, useDispatch } from "react-redux";
 
 // Components
-import ShareDisplay from "./ShareDisplay/ShareDisplay";
-import ImagePicker from "./ImagePicker/ImagePicker";
-import CustomizeStyles from "./CustomizeStyles/CustomizeStyles";
-import DownloadAndShare from "./DownloadAndShare/DownloadAndShare";
+import { Grid, Typography, Divider, Button } from "@material-ui/core";
 import ContentTitle from "../UI/ContentTitle/ContentTitle";
-import { Grid, Typography } from "@material-ui/core";
+import ShareDisplay from "./ShareDisplay/ShareDisplay";
+import ImageEditor from "./ImageEditor/ImageEditor";
+import TextEditor from "./TextEditor/TextEditor";
+import OtherEditor from "./OtherEditor/OtherEditor";
+import DownloadAndShare from "./DownloadAndShare/DownloadAndShare";
+import CustomSpinner from "./../UI/CustomSpinner/CustomSpinner";
+import PhotographerCredits from "./PhotographerCredits/PhotographerCredits";
+
+// Canvas editor
+import {
+	initCanvas,
+	changeImageBlur,
+	changeImageScale,
+	changeFontFamily,
+	changeFontSize,
+	changeTextAlign,
+	toggleBold,
+	toggleItalic,
+	toggleUnderlined,
+	changeQuotesColor,
+	changeAuthorColor,
+	changeFontCase,
+	changeHideAuthor,
+	toggleGrayscale,
+	toggleSepia,
+	toggleOldPhoto,
+	toggleVintage,
+	toggleKodachrome,
+	togglePolaroid
+} from "../../utils/canvasEditor";
 
 // Styles
 import useStyles from "./styles";
 
-// Images
-import canvasPlaceholder from "../../images/canvasPlaceholder.jpg";
-import invalidImageFallback from "../../images/invalidURL.jpg";
+// Icons
+import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 
 const SharePost = ({ mobile }) => {
-	const canvas = useSelector(state => state.canvas, shallowEqual);
-	const quotes = useSelector(state => state.shareQuotes, shallowEqual);
+	const [canvas, setCanvas] = useState("");
+	const { quotes: text, author, status } = useSelector(state => state.shareQuotes, shallowEqual);
+	const { status: authStatus } = useSelector(state => state.auth, shallowEqual);
+	const {
+		fontSize,
+		fontFamily,
+		imageBlur,
+		imageScale,
+		initialScale,
+		textAlign,
+		isBold,
+		isItalic,
+		isUnderlined,
+		quotesFontColor,
+		authorFontColor,
+		fontCase,
+		hideAuthor,
+		grayscale,
+		sepia,
+		oldPhoto,
+		vintage,
+		kodachrome,
+		polaroid
+	} = useSelector(state => state.canvas, shallowEqual);
 	const { postId } = useParams();
+	const history = useHistory();
 	const dispatch = useDispatch();
+
+	const isLoading = status === "loading";
+
 	const classes = useStyles();
 
+	// Fetch quotes data
 	useEffect(() => {
-		dispatch(fetchShareQuotes(postId));
-	}, [dispatch, postId]);
+		if (authStatus === "succeeded") {
+			dispatch(fetchShareQuotes(postId));
+		}
+	}, [dispatch, postId, authStatus]);
 
+	// Initialize canvas for first time
 	useEffect(() => {
-		const initCanvas = () =>
-			new fabric.Canvas("canvas", {
-				height: 400,
-				width: 300,
-				backgroundImage: canvasPlaceholder,
-				uniformScaling: true,
-				preserveObjectStacking: true,
-				selection: false,
-				hoverCursor: "auto",
-				allowTouchScrolling: false
-			});
-		dispatch(changeCanvas(initCanvas()));
-	}, [dispatch]);
+		if (status === "succeeded") {
+			setCanvas(initCanvas({ dispatch, text, fontSize, fontFamily, author }));
+		}
+	}, [status]);
 
-	const generateQuotes = useCallback(
-		async urlToUse => {
-			const image = await checkImageUrl(urlToUse);
+	// Change image blur
+	useEffect(() => {
+		if (canvas) {
+			changeImageBlur({ canvas, imageBlur });
+		}
+	}, [imageBlur]);
 
-			resetCanvas(canvas);
-			dispatch(changeCanvasImage(initCanvasImage(image, canvas)));
-			if (image !== invalidImageFallback) {
-				dispatch(
-					changeQuotes(
-						initCanvasText(`"${quotes.quotes}"`, canvas, canvas.fontFamily, canvas.fontSize)
-					)
-				);
-				dispatch(changeAuthor(initAuthorText(`- ${quotes.author}`, canvas)));
-				initWatermark(canvas);
-			}
-		},
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-		[dispatch, quotes.author, quotes.quotes]
-	);
+	// Change image scale
+	useEffect(() => {
+		if (canvas) {
+			changeImageScale({ canvas, imageScale, initialScale });
+		}
+	}, [imageScale]);
+
+	// Change font family
+	useEffect(() => {
+		if (canvas) {
+			changeFontFamily({ canvas, fontFamily });
+		}
+	}, [fontFamily]);
+
+	// Change font size
+	useEffect(() => {
+		if (canvas) {
+			changeFontSize({ canvas, fontSize });
+		}
+	}, [fontSize]);
+
+	// Change font size
+	useEffect(() => {
+		if (canvas) {
+			changeTextAlign({ canvas, textAlign });
+		}
+	}, [textAlign]);
+
+	// Font style bold
+	useEffect(() => {
+		if (canvas) {
+			toggleBold({ canvas, isBold });
+		}
+	}, [isBold]);
+
+	// Font style italic
+	useEffect(() => {
+		if (canvas) {
+			toggleItalic({ canvas, isItalic });
+		}
+	}, [isItalic]);
+
+	// Font style underlined
+	useEffect(() => {
+		if (canvas) {
+			toggleUnderlined({ canvas, isUnderlined });
+		}
+	}, [isUnderlined]);
+
+	// Change quotes font color
+	useEffect(() => {
+		if (canvas) {
+			changeQuotesColor({ canvas, quotesFontColor });
+		}
+	}, [quotesFontColor]);
+
+	// Change author font color
+	useEffect(() => {
+		if (canvas) {
+			changeAuthorColor({ canvas, authorFontColor });
+		}
+	}, [authorFontColor]);
+
+	// Change font case
+	useEffect(() => {
+		if (canvas) {
+			changeFontCase({ canvas, fontCase, initialQuotes: text });
+		}
+	}, [fontCase]);
+
+	// Hide author
+	useEffect(() => {
+		if (canvas) {
+			changeHideAuthor({ canvas, hideAuthor, initialAuthor: author });
+		}
+	}, [hideAuthor]);
+
+	// Grayscale
+	useEffect(() => {
+		if (canvas) {
+			toggleGrayscale({ canvas, grayscale });
+		}
+	}, [grayscale]);
+
+	// Sepia
+	useEffect(() => {
+		if (canvas) {
+			toggleSepia({ canvas, sepia });
+		}
+	}, [sepia]);
+
+	// Old Photo
+	useEffect(() => {
+		if (canvas) {
+			toggleOldPhoto({ canvas, oldPhoto });
+		}
+	}, [oldPhoto]);
+
+	// Vintage
+	useEffect(() => {
+		if (canvas) {
+			toggleVintage({ canvas, vintage });
+		}
+	}, [vintage]);
+
+	// Kodachrome
+	useEffect(() => {
+		if (canvas) {
+			toggleKodachrome({ canvas, kodachrome });
+		}
+	}, [kodachrome]);
+
+	// Polaroid
+	useEffect(() => {
+		if (canvas) {
+			togglePolaroid({ canvas, polaroid });
+		}
+	}, [polaroid]);
 
 	return (
 		<Grid container className={classes.sharePostContainer}>
 			{!mobile && <ContentTitle title="Share post & download" color="success" />}
 			<Grid container direction="column" className={classes.customizeImage}>
-				<Typography variant="body2" className={classes.editorTitle}>
-					Customize Image
-				</Typography>
-				<Grid
-					container
-					direction="row"
-					justifyContent="space-between"
-					className={classes.imageEditorContainer}
-				>
-					<ShareDisplay />
-					<ImagePicker onClickImage={generateQuotes} />
-				</Grid>
-				<CustomizeStyles generateQuotes={generateQuotes} />
-				<DownloadAndShare mobile={mobile} />
+				{!isLoading ? (
+					<>
+						<Grid container direction="column" className={classes.previewContainer}>
+							<Typography className={classes.editorTitle} align="center">
+								Result Preview
+							</Typography>
+							<Button
+								startIcon={<KeyboardBackspaceIcon />}
+								size="small"
+								className={classes.backButton}
+								onClick={() => history.goBack()}
+							>
+								Go Back
+							</Button>
+							<Divider className={classes.divider} />
+							<ShareDisplay />
+							<PhotographerCredits />
+							<DownloadAndShare canvas={canvas} quotes={text} />
+						</Grid>
+						<ImageEditor canvas={canvas} mobile={mobile} />
+						<TextEditor canvas={canvas} />
+						<OtherEditor />
+					</>
+				) : (
+					<Grid
+						container
+						justifyContent="center"
+						alignItems="center"
+						className={classes.spinnerContainer}
+					>
+						<CustomSpinner />
+					</Grid>
+				)}
 			</Grid>
+
+			{/* <ImagePicker onClickImage={generateQuotes} /> */}
+			{/* <CustomizeStyles generateQuotes={generateQuotes} />
+				<DownloadAndShare mobile={mobile} /> */}
 		</Grid>
 	);
 };

@@ -1,11 +1,20 @@
 // Dependencies
 import axios from "axios";
+import { BASE_URL } from "./BASEURL";
 
 // Base URL
 const API = axios.create({
-	baseURL: "https://quoteeapi.herokuapp.com",
+	baseURL: BASE_URL,
 	withCredentials: true,
 	credentials: "include"
+});
+
+API.interceptors.request.use(req => {
+	if (localStorage.getItem("jwt")) {
+		req.headers.Authorization = `Bearer ${localStorage.getItem("jwt")}`;
+	}
+
+	return req;
 });
 
 export const signUp = newUser => API.post("/u/signup", newUser);
@@ -34,10 +43,10 @@ export const fetchUserSuggestion = () => API.get("/u/usersuggestion");
 
 export const fetchUserProfile = username => API.get(`/u/${username}`);
 
-export const fetchUserPosts = username => API.get(`/u/${username}/p`);
+export const fetchUserPosts = username => API.get(`/u/${username}/p?current=0`);
 
 export const fetchMoreUserPosts = ({ username, current }) =>
-	API.get(`/u/${username}/p?current=${current}`);
+	API.get(`/u/${username}/p?current=${current || 0}`);
 
 export const searchUserPosts = ({ username, quotes }) =>
 	API.get(`/u/${username}/p?quotes=${quotes}`);
@@ -69,3 +78,6 @@ export const searchPopulatedFollowers = ({ username, usernameQuery }) =>
 export const fetchTopUsers = () => API.get("/u/topuser");
 
 export const fetchNotifications = current => API.get(`/u/n?current=${current}`);
+
+export const reportUser = ({ code, username, description }) =>
+	API.post(`/u/${username}/report`, { description, code });

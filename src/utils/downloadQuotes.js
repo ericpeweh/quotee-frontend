@@ -1,4 +1,4 @@
-export const downloadQuotes = (canvas, quality, quotes) => {
+export const downloadQuotes = ({ canvas, quality, fileName }) => {
 	// Quality = 2 = low, 3 = Med, 4 = High
 
 	const pngUrl = canvas.toDataURL({
@@ -8,7 +8,7 @@ export const downloadQuotes = (canvas, quality, quotes) => {
 
 	let downloadLink = document.createElement("a");
 	downloadLink.href = pngUrl;
-	downloadLink.download = `${quotes}.png`;
+	downloadLink.download = `${fileName}.png`;
 	document.body.appendChild(downloadLink);
 	downloadLink.click();
 	document.body.removeChild(downloadLink);

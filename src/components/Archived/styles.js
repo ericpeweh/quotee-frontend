@@ -29,7 +29,8 @@ const useStyles = makeStyles(theme => ({
 		[theme.breakpoints.down(850)]: {
 			"& > div:nth-child(1)": {
 				paddingRight: 0
-			}
+			},
+			flex: 1
 		}
 	},
 	masonryGridColumn: {
@@ -38,6 +39,14 @@ const useStyles = makeStyles(theme => ({
 		"& > div": {
 			marginBottom: theme.spacing(2),
 			marginTop: theme.spacing(2)
+		},
+		[theme.breakpoints.down("xs")]: {
+			"& > div:nth-child(1)": {
+				marginTop: "0 !important"
+			},
+			"& > div:last-child, & > div:last-child > div": {
+				marginBottom: "0 !important"
+			}
 		}
 	},
 	[theme.breakpoints.down("xs")]: {

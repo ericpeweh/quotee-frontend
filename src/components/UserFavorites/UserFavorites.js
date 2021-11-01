@@ -52,10 +52,6 @@ const UserFavorites = () => {
 				direction="column"
 			>
 				<FallbackImage image={FavoritesFallback} text="You don't have any favorites yet." />
-				<Typography className={classes.favoritesSubtitle}>
-					To favorite a quotes, click the " Add to favorites{" "}
-					<BookmarkIcon className={classes.favoritesIcon} />" button
-				</Typography>
 			</Grid>
 		);
 	} else {

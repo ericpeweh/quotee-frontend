@@ -22,9 +22,12 @@ import socialReducer from "./slices/socialSlice";
 import articleReducer from "./slices/articleSlice";
 import notificationsReducer from "./slices/notificationsSlice";
 import reportReducer from "./slices/reportSlice";
+import userReportReducer from "./slices/userReportSlice";
 import themeReducer from "./slices/themeSlice";
 import pwaReducer from "./slices/pwaSlice";
 import resetPasswordReducer from "./slices/resetPasswordSlice";
+import tempPostsReducer from "./slices/tempPostsSlice";
+import imagesReducer from "./slices/imagesSlice";
 
 const store = configureStore({
 	reducer: {
@@ -48,9 +51,12 @@ const store = configureStore({
 		article: articleReducer,
 		notifications: notificationsReducer,
 		report: reportReducer,
+		userReport: userReportReducer,
 		theme: themeReducer,
 		pwa: pwaReducer,
-		resetPassword: resetPasswordReducer
+		resetPassword: resetPasswordReducer,
+		tempPosts: tempPostsReducer,
+		images: imagesReducer
 	},
 	middleware: getDefaultMiddleware =>
 		getDefaultMiddleware({

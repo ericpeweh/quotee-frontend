@@ -1,6 +1,6 @@
 // Dependencies
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchLikes, searchLikes, fetchMoreLikes } from "../../actions/posts";
+import { fetchLikes, searchLikes, fetchMoreLikes, likePost } from "../../actions/posts";
 
 const initialState = {
 	isSnackbarOpen: false,
@@ -95,6 +95,11 @@ const modalSlice = createSlice({
 		},
 		[searchLikes.rejected]: state => {
 			state.likeStatus = "failed";
+		},
+		[likePost.fulfilled]: (state, action) => {
+			if (action.payload.updatedPost._id === state.postId) {
+				state.likes = action.payload.updatedLikes;
+			}
 		}
 	}
 });

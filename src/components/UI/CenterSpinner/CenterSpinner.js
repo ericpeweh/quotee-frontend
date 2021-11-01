@@ -1,5 +1,6 @@
 // Components
-import { Backdrop, CircularProgress } from "@material-ui/core";
+import { Backdrop } from "@material-ui/core";
+import CustomSpinner from "../CustomSpinner/CustomSpinner";
 
 // Styles
 import useStyles from "./styles";
@@ -9,7 +10,7 @@ const CenterSpinner = ({ open }) => {
 
 	return (
 		<Backdrop className={classes.backdrop} open={open} onClick={() => {}}>
-			<CircularProgress color="secondary" />
+			<CustomSpinner />
 		</Backdrop>
 	);
 };

@@ -7,6 +7,12 @@ const useStyles = makeStyles(theme => ({
 	},
 	buttonBase: {
 		borderRadius: 15
+	},
+	navButton: {
+		"& > div > button": {
+			height: "0.5rem",
+			width: "0.5rem"
+		}
 	}
 }));
 

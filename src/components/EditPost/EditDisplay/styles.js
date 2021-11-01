@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
 	cardMedia: {
 		height: "100%",
 		paddingTop: "100%",
-		filter: "blur(2px)"
+		filter: "blur(0.4px)"
 	},
 	quotesText: {
 		position: "absolute",

@@ -22,10 +22,9 @@ const ArticleActions = ({ status }) => {
 	const isLoading = status === "loading";
 
 	let nextArticleId = "";
+	let currentArticleIndex = 0;
 	if (articles.length !== 0) {
-		const currentArticleIndex = articles.findIndex(
-			article => article.articleId === currentArticleId
-		);
+		currentArticleIndex = articles.findIndex(article => article.articleId === currentArticleId);
 
 		nextArticleId =
 			currentArticleIndex === 3
@@ -58,7 +57,7 @@ const ArticleActions = ({ status }) => {
 						>
 							Back to social
 						</Button>
-						{articles.length !== 0 && (
+						{articles.length !== 0 && currentArticleIndex !== articles.length - 1 && (
 							<Button
 								className={classes.button}
 								endIcon={<TrendingFlatIcon />}

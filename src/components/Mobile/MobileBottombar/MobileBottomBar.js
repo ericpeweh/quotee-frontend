@@ -1,6 +1,6 @@
 // Dependencies
 import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
 import { shallowEqual, useSelector } from "react-redux";
 
 // Components
@@ -20,6 +20,7 @@ import TurnedInIcon from "@material-ui/icons/TurnedIn";
 const MobileBottomBar = () => {
 	const { username, profilePicture } = useSelector(state => state.auth, shallowEqual);
 	const location = useLocation();
+	const history = useHistory();
 	const classes = useStyles();
 	const [menu, setMenu] = useState(location.pathname);
 
@@ -38,8 +39,7 @@ const MobileBottomBar = () => {
 				icon={menu === "/" ? <HomeIcon /> : <HomeOutlinedIcon />}
 				showLabel={false}
 				classes={{ root: classes.menuSelected }}
-				component={Link}
-				to="/"
+				onClick={() => history.replace("/")}
 				value="/"
 			/>
 			<BottomNavigationAction
@@ -52,16 +52,14 @@ const MobileBottomBar = () => {
 				}
 				showLabel={false}
 				classes={{ root: classes.menuSelected }}
-				component={Link}
-				to="/social"
+				onClick={() => history.replace("/social")}
 				value="/social"
 			/>
 			<BottomNavigationAction
 				icon={menu === "/favorites" ? <TurnedInIcon /> : <TurnedInNotIcon />}
 				showLabel={false}
 				classes={{ root: classes.menuSelected }}
-				component={Link}
-				to="/favorites"
+				onClick={() => history.replace("/favorites")}
 				value="/favorites"
 			/>
 			<BottomNavigationAction
@@ -75,8 +73,7 @@ const MobileBottomBar = () => {
 				}
 				classes={{ root: classes.menuSelected }}
 				showLabel={false}
-				component={Link}
-				to={`/${username}`}
+				onClick={() => history.replace(`/${username}`)}
 				value={`/${username}`}
 			/>
 		</BottomNavigation>

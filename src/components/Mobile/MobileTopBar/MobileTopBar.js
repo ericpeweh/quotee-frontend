@@ -5,7 +5,7 @@ import { fetchNotifications } from "../../../actions/users";
 
 // Components
 import { Link } from "react-router-dom";
-import { Grid, IconButton } from "@material-ui/core";
+import { Grid, IconButton, Badge } from "@material-ui/core";
 
 // Icons
 import AddBoxOutlinedIcon from "@material-ui/icons/AddBoxOutlined";
@@ -21,6 +21,7 @@ import NotificationModal from "./NotificationModal/NotificationModal";
 const MobileTopBar = () => {
 	const [isNotificationOpen, setIsNotificationOpen] = useState(false);
 	const { status, notifications } = useSelector(state => state.notifications, shallowEqual);
+	const { unreadNotifications } = useSelector(state => state.auth, shallowEqual);
 	const dispatch = useDispatch();
 	const classes = useStyles();
 
@@ -56,7 +57,13 @@ const MobileTopBar = () => {
 				</Grid>
 				<Grid item>
 					<IconButton size="small" onClick={notificationOpenHandler}>
-						<NotificationsNoneOutlinedIcon />
+						{unreadNotifications ? (
+							<Badge variant="dot" overlap="circular" badgeContent="" color="primary">
+								<NotificationsNoneOutlinedIcon />
+							</Badge>
+						) : (
+							<NotificationsNoneOutlinedIcon />
+						)}
 					</IconButton>
 				</Grid>
 			</Grid>

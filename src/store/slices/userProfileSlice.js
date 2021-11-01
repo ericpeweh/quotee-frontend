@@ -13,7 +13,14 @@ import {
 	searchPopulatedFollowers,
 	searchPopulatedFollowing
 } from "../../actions/users";
-import { likePost, deletePost } from "../../actions/posts";
+import {
+	likePost,
+	deletePost,
+	createPost,
+	editPost,
+	archivePost,
+	unarchivePost
+} from "../../actions/posts";
 
 const initialState = {
 	userId: "",
@@ -39,6 +46,7 @@ const initialState = {
 	whichModal: "",
 	posts: [],
 	hasMorePosts: false,
+	fetchMoreUserPostsStatus: "idle",
 	postStatus: "idle",
 	postSearchQuery: "",
 	postSearchStatus: "idle"
@@ -48,32 +56,32 @@ const userProfileSlice = createSlice({
 	name: "userProfile",
 	initialState,
 	reducers: {
-		resetUserProfile: state => {
-			state.userId = "";
-			state.username = "";
-			state.fullName = "";
-			state.description = "";
-			state.profilePicture = "";
-			state.followers = [];
-			state.following = [];
-			state.populatedFollowers = [];
-			state.populatedFollowing = [];
-			state.populateFollowersStatus = "idle";
-			state.populateFollowingStatus = "idle";
-			state.fetchMorePopulateFollowersStatus = "idle";
-			state.fetchMorePopulateFollowingStatus = "idle";
-			state.hasMoreFollowers = false;
-			state.hasMoreFollowing = false;
-			state.posts = [];
-			state.postAmount = 0;
-			state.postStatus = state.postStatus === "loading" ? "loading" : "idle";
-			state.status = "idle";
-			state.profileMessage = "";
-			state.isProfileModalOpen = false;
-			state.whichModal = "";
-			state.postSearchQuery = "";
-			state.postSearchStatus = "idle";
-		},
+		// resetUserProfile: state => {
+		// 	state.userId = "";
+		// 	state.username = "";
+		// 	state.fullName = "";
+		// 	state.description = "";
+		// 	state.profilePicture = "";
+		// 	state.followers = [];
+		// 	state.following = [];
+		// 	state.populatedFollowers = [];
+		// 	state.populatedFollowing = [];
+		// 	state.populateFollowersStatus = "idle";
+		// 	state.populateFollowingStatus = "idle";
+		// 	state.fetchMorePopulateFollowersStatus = "idle";
+		// 	state.fetchMorePopulateFollowingStatus = "idle";
+		// 	state.hasMoreFollowers = false;
+		// 	state.hasMoreFollowing = false;
+		// 	state.posts = [];
+		// 	state.postAmount = 0;
+		// 	state.postStatus = state.postStatus === "loading" ? "loading" : "idle";
+		// 	state.status = "idle";
+		// 	state.profileMessage = "";
+		// 	state.isProfileModalOpen = false;
+		// 	state.whichModal = "";
+		// 	state.postSearchQuery = "";
+		// 	state.postSearchStatus = "idle";
+		// },
 		closeModal: state => {
 			state.isProfileModalOpen = false;
 		},
@@ -119,18 +127,15 @@ const userProfileSlice = createSlice({
 			state.hasMorePosts = action.payload.hasMore;
 		},
 		[fetchUserPosts.rejected]: state => {
-			state.postStatus = "failed";
-		},
-		[fetchMoreUserPosts.pending]: state => {
-			state.postStatus = "loading";
+			state.fetchMoreUserPostsStatus = "failed";
 		},
 		[fetchMoreUserPosts.fulfilled]: (state, action) => {
-			state.postStatus = "succeeded";
-			state.posts = action.payload.posts;
+			state.fetchMoreUserPostsStatus = "succeeded";
+			state.posts.push(...action.payload.posts);
 			state.hasMorePosts = action.payload.hasMore;
 		},
 		[fetchMoreUserPosts.rejected]: state => {
-			state.postStatus = "failed";
+			state.fetchMoreUserPostsStatus = "failed";
 		},
 		[searchUserPosts.pending]: state => {
 			state.postStatus = "loading";
@@ -147,8 +152,8 @@ const userProfileSlice = createSlice({
 		},
 		[likePost.fulfilled]: (state, action) => {
 			state.posts = state.posts.map(post =>
-				post._id === action.payload._id
-					? { ...action.payload, profilePicture: post.profilePicture }
+				post._id === action.payload.updatedPost._id
+					? { ...action.payload.updatedPost, profilePicture: post.profilePicture }
 					: post
 			);
 		},
@@ -204,7 +209,7 @@ const userProfileSlice = createSlice({
 		},
 		[searchPopulatedFollowing.fulfilled]: (state, action) => {
 			state.populateFollowingStatus = "succeeded";
-			state.populatedFollowing = action.payload;
+			state.populatedFollowing = action.payload.following;
 		},
 		[searchPopulatedFollowing.rejected]: state => {
 			state.populateFollowingStatus = "failed";
@@ -214,19 +219,33 @@ const userProfileSlice = createSlice({
 		},
 		[searchPopulatedFollowers.fulfilled]: (state, action) => {
 			state.populateFollowersStatus = "succeeded";
-			state.populatedFollowers = action.payload;
+			state.populatedFollowers = action.payload.followers;
 		},
 		[searchPopulatedFollowers.rejected]: state => {
 			state.populateFollowersStatus = "failed";
 		},
 		[deletePost.fulfilled]: (state, action) => {
 			state.posts = state.posts.filter(post => post._id !== action.payload.postId);
+		},
+		[createPost.fulfilled]: (state, action) => {
+			state.posts.unshift(action.payload.newPost);
+		},
+		[editPost.fulfilled]: (state, { payload }) => {
+			state.posts = state.posts.map(post =>
+				post._id === payload.editedPost._id ? payload.editedPost : post
+			);
+		},
+		[archivePost.fulfilled]: (state, { payload }) => {
+			state.posts = state.posts.filter(post => post._id !== payload.archivedPostId);
+		},
+		[unarchivePost.fulfilled]: (state, { payload }) => {
+			state.posts.unshift(payload.unarchivedPost);
 		}
 	}
 });
 
 export const {
-	resetUserProfile,
+	// resetUserProfile,
 	closeModal,
 	openModal,
 	changeWhichModal,

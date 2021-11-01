@@ -1,7 +1,7 @@
 // Dependencies
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchUserArchived } from "../../actions/users";
-import { unarchivePost } from "../../actions/posts";
+import { unarchivePost, archivePost } from "../../actions/posts";
 
 const initialState = {
 	posts: [],
@@ -24,7 +24,10 @@ const userArchivedSlice = createSlice({
 			state.status = "failed";
 		},
 		[unarchivePost.fulfilled]: (state, action) => {
-			state.posts = action.payload;
+			state.posts = action.payload.archived;
+		},
+		[archivePost.fulfilled]: (state, action) => {
+			state.posts = action.payload.archivedPosts;
 		}
 	}
 });

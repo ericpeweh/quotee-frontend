@@ -25,15 +25,18 @@ const AccountPosts = React.forwardRef((props, ref) => {
 		postSearchQuery,
 		postSearchStatus,
 		hasMorePosts,
-		postStatus
+		postStatus,
+		username: userProfileUsername
 	} = useSelector(state => state.userProfile, shallowEqual);
 	const { username } = useParams();
 	const dispatch = useDispatch();
 	const classes = useStyles();
 
 	useEffect(() => {
-		dispatch(fetchUserPosts(username));
-	}, [dispatch, username]);
+		if (userProfileUsername !== username) {
+			dispatch(fetchUserPosts(username));
+		}
+	}, [dispatch, username, userProfileUsername]);
 
 	const searchHandler = useCallback(
 		searchQuery => {
@@ -70,8 +73,12 @@ const AccountPosts = React.forwardRef((props, ref) => {
 				</Typography>
 			) : (
 				<InfiniteScroll
-					dataLength={quotes.length}
-					next={() => dispatch(fetchMoreUserPosts(quotes.length))}
+					dataLength={quotes?.length}
+					next={() => {
+						if (postStatus === "succeeded") {
+							dispatch(fetchMoreUserPosts({ username, current: quotes?.length }));
+						}
+					}}
 					hasMore={hasMorePosts}
 					loader={
 						<Grid container justifyContent="center" alignItems="center">

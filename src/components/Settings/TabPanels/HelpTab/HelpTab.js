@@ -21,7 +21,7 @@ const HelpTab = ({ currentTab }) => {
 					Share your quotes to motivate and search for quotes to get motivated!
 				</PointListItem>
 				<PointListItem variant="body2" type="secondary" component="div">
-					Apps Version : 1.0.0
+					Apps Version : 1.0.0 | RELEASED
 				</PointListItem>
 				<PointListItem variant="body2" type="secondary" component="div">
 					Apps created by{" "}
@@ -53,8 +53,8 @@ const HelpTab = ({ currentTab }) => {
 					</a>
 				</PointListItem>
 				<PointListItem variant="body2" type="secondary" component="div">
-					Quotee is currently on "Testing", all of your data, quotes will be deleted and refreshed
-					when testing periods ended.
+					Quotee testing period is over. Quotee can be fully used. If you experience problems
+					accessing because of bugs or glitch, please contact me immediately.
 				</PointListItem>
 				<PointListItem variant="body2" type="secondary" component="div">
 					Current features list:
@@ -64,6 +64,7 @@ const HelpTab = ({ currentTab }) => {
 						<li>Forgot password, change password</li>
 						<li>News & Ads Carousel</li>
 						<li>Create quotes & drafts</li>
+						<li>Bad words filter</li>
 						<li>Download & share quotes</li>
 						<li>Share to social media</li>
 						<li>Quotes image selection / external source</li>
@@ -87,13 +88,16 @@ const HelpTab = ({ currentTab }) => {
 					<ul>
 						<li>Performance optimization</li>
 						<li>Security optimization</li>
+						<li>Badges & Achievements</li>
+						<li>Reactions to Quotes</li>
 					</ul>
 				</PointListItem>
 				<PointListItem variant="body2" type="primary" component="div">
 					On request:
 					<ul>
-						<li>Emoticon reaction to quotes</li>
-						<li>More notifications</li>
+						<li>Quotes Bank</li>
+						<li>Share Quotes Images</li>
+						<li>Save Quotes Download Profile</li>
 						<li>...</li>
 					</ul>
 				</PointListItem>

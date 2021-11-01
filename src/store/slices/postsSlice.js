@@ -1,21 +1,40 @@
 // Dependencies
 import { createSlice } from "@reduxjs/toolkit";
+import moment from "moment";
 
 // Actions
-import { fetchPosts, likePost, deletePost, fetchMorePosts, archivePost } from "../../actions/posts";
+import {
+	fetchPosts,
+	likePost,
+	deletePost,
+	fetchMorePosts,
+	archivePost,
+	fetchTempPosts
+} from "../../actions/posts";
 
 const initialState = {
 	posts: [],
 	status: "idle",
 	error: "",
 	fetchMorePostsStatus: "idle",
-	hasMorePosts: false
+	hasMorePosts: false,
+	hasNewPosts: false
 };
 
 const postsSlice = createSlice({
 	name: "posts",
 	initialState,
-	reducers: {},
+	reducers: {
+		loadNewPosts: (state, { payload }) => {
+			const newPosts = payload.posts.filter(
+				newPost => !state.posts.some(currentPost => newPost._id === currentPost._id)
+			);
+			if (newPosts.length > 0) {
+				state.posts.unshift(...newPosts);
+			}
+			state.hasNewPosts = false;
+		}
+	},
 	extraReducers: {
 		[fetchPosts.pending]: state => {
 			state.status = "loading";
@@ -43,8 +62,8 @@ const postsSlice = createSlice({
 		},
 		[likePost.fulfilled]: (state, action) => {
 			state.posts = state.posts.map(post =>
-				post._id === action.payload._id
-					? { ...action.payload, profilePicture: post.profilePicture }
+				post._id === action.payload.updatedPost._id
+					? { ...action.payload.updatedPost, profilePicture: post.profilePicture }
 					: post
 			);
 		},
@@ -53,8 +72,23 @@ const postsSlice = createSlice({
 		},
 		[archivePost.fulfilled]: (state, { payload }) => {
 			state.posts = state.posts.filter(post => post._id !== payload.archivedPostId);
+		},
+		[fetchTempPosts.fulfilled]: (state, { payload }) => {
+			const newPosts = payload.posts.filter(
+				newPost =>
+					!state.posts.some(
+						currentPost =>
+							newPost._id === currentPost._id ||
+							moment().diff(payload.posts[0].createdAt, "hours") > 0
+					)
+			);
+			if (newPosts.length > 0) {
+				state.hasNewPosts = true;
+			}
 		}
 	}
 });
+
+export const { loadNewPosts } = postsSlice.actions;
 
 export default postsSlice.reducer;

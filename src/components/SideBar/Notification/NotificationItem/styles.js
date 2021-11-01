@@ -18,7 +18,8 @@ const useStyles = makeStyles(theme => ({
 		paddingRight: 5
 	},
 	listItemText: {
-		textAlign: "justify"
+		textAlign: "justify",
+		wordBreak: "break-all"
 	},
 	listItemPrimary: {
 		fontWeight: 600
