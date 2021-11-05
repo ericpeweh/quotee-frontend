@@ -20,7 +20,7 @@ const Preferences = () => {
 	};
 
 	return (
-		<Grid item container sm={12} md={6} className={classes.preferencesContainer} direction="column">
+		<Grid item container sm={12} xl={6} className={classes.preferencesContainer} direction="column">
 			<Typography align="center" className={classes.preferencesTitle}>
 				Preferences
 			</Typography>

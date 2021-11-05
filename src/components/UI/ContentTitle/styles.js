@@ -17,6 +17,16 @@ const useStyles = makeStyles(theme => ({
 	},
 	success: {
 		color: theme.palette.success.dark
+	},
+	backButton: {
+		color: theme.palette.text.secondary,
+		borderRadius: "15px",
+		padding: theme.spacing(1),
+		marginBottom: theme.spacing(1),
+		marginRight: theme.spacing(1),
+		[theme.breakpoints.down("xs")]: {
+			display: "none"
+		}
 	}
 }));
 

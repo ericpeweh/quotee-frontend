@@ -29,7 +29,7 @@ const TextPositions = ({ canvas }) => {
 	};
 
 	return (
-		<Grid item sm={12} md={6} className={classes.textPositionsContainer}>
+		<Grid item sm={12} xl={6} className={classes.textPositionsContainer}>
 			<Typography align="center" className={classes.quotesPositionTitle}>
 				Quotes position
 			</Typography>

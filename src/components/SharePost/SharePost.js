@@ -2,11 +2,11 @@
 // Dependencies
 import { useState, useEffect } from "react";
 import { fetchShareQuotes } from "../../actions/share";
-import { useParams, useHistory } from "react-router";
+import { useParams } from "react-router";
 import { shallowEqual, useSelector, useDispatch } from "react-redux";
 
 // Components
-import { Grid, Typography, Divider, Button } from "@material-ui/core";
+import { Grid, Typography, Divider } from "@material-ui/core";
 import ContentTitle from "../UI/ContentTitle/ContentTitle";
 import ShareDisplay from "./ShareDisplay/ShareDisplay";
 import ImageEditor from "./ImageEditor/ImageEditor";
@@ -42,9 +42,6 @@ import {
 // Styles
 import useStyles from "./styles";
 
-// Icons
-import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
-
 const SharePost = ({ mobile }) => {
 	const [canvas, setCanvas] = useState("");
 	const { quotes: text, author, status } = useSelector(state => state.shareQuotes, shallowEqual);
@@ -71,7 +68,6 @@ const SharePost = ({ mobile }) => {
 		polaroid
 	} = useSelector(state => state.canvas, shallowEqual);
 	const { postId } = useParams();
-	const history = useHistory();
 	const dispatch = useDispatch();
 
 	const isLoading = status === "loading";
@@ -220,30 +216,31 @@ const SharePost = ({ mobile }) => {
 
 	return (
 		<Grid container className={classes.sharePostContainer}>
-			{!mobile && <ContentTitle title="Share post & download" color="success" />}
+			{!mobile && <ContentTitle title="Share post & download" color="success" backButton />}
 			<Grid container direction="column" className={classes.customizeImage}>
 				{!isLoading ? (
 					<>
-						<Grid container direction="column" className={classes.previewContainer}>
+						<Grid
+							item
+							container
+							direction="column"
+							className={classes.previewContainer}
+							xs={12}
+							sm={4}
+						>
 							<Typography className={classes.editorTitle} align="center">
 								Result Preview
 							</Typography>
-							<Button
-								startIcon={<KeyboardBackspaceIcon />}
-								size="small"
-								className={classes.backButton}
-								onClick={() => history.goBack()}
-							>
-								Go Back
-							</Button>
 							<Divider className={classes.divider} />
 							<ShareDisplay />
 							<PhotographerCredits />
 							<DownloadAndShare canvas={canvas} quotes={text} />
 						</Grid>
-						<ImageEditor canvas={canvas} mobile={mobile} />
-						<TextEditor canvas={canvas} />
-						<OtherEditor />
+						<Grid container item direction="row" xs={8} className={classes.editorContainer}>
+							<ImageEditor canvas={canvas} mobile={mobile} />
+							<TextEditor canvas={canvas} />
+							<OtherEditor />
+						</Grid>
 					</>
 				) : (
 					<Grid

@@ -5,7 +5,7 @@ const useStyles = makeStyles(theme => ({
 		paddingTop: 0,
 		padding: theme.spacing(2),
 		borderRight: theme.palette.type === "dark" ? "2px solid #545454" : "2px solid #bfbfbf",
-		[theme.breakpoints.down("md")]: {
+		[theme.breakpoints.down("xl")]: {
 			borderRight: 0
 		},
 		[theme.breakpoints.down("xs")]: {

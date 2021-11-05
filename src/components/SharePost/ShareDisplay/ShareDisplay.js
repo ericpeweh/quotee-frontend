@@ -15,6 +15,7 @@ const ShareDisplay = () => {
 
 	return (
 		<Grid
+			item
 			container
 			justifyContent="center"
 			direction="row"

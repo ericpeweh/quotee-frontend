@@ -1,5 +1,5 @@
 // Dependencies
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { likeModalChange, likeModalPostId } from "../../../../../store/slices/modalSlice";
@@ -39,6 +39,10 @@ const QuoteAction = ({ quotes, mobile, status }) => {
 	const hasFavoritedPost = favorites?.find(favorite => favorite === quotes?._id);
 
 	const isLoading = status === "loading";
+
+	useEffect(() => {
+		setLikes(quotes?.likes);
+	}, [quotes?.likes]);
 
 	const likeClickHandler = () => {
 		dispatch(likePost(quotes?._id));

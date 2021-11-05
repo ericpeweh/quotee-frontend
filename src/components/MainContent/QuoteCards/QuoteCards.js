@@ -79,7 +79,7 @@ const QuoteCards = () => {
 				>
 					{!isLoading &&
 						posts.map((post, index) => (
-							<div key={post.quotesId || index}>
+							<div key={post.quotesId}>
 								<QuoteCard quotes={post} status={status} />
 							</div>
 						))}

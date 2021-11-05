@@ -5,7 +5,7 @@ const useStyles = makeStyles(theme => ({
 		paddingTop: 0,
 		padding: theme.spacing(2),
 		paddingLeft: theme.spacing(4),
-		[theme.breakpoints.down("md")]: {
+		[theme.breakpoints.down("xl")]: {
 			paddingLeft: theme.spacing(2)
 		},
 		[theme.breakpoints.down("xs")]: {

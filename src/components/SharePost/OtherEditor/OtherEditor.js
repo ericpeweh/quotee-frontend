@@ -14,22 +14,24 @@ const OtherEditor = () => {
 	const classes = useStyles();
 
 	return (
-		<div className={classes.root}>
-			<Accordion classes={{ root: classes.accordion, expanded: classes.expanded }}>
-				<AccordionSummary expandIcon={<ExpandMoreIcon />}>
-					<Grid container direction="row" alignItems="center">
-						<SettingsOutlinedIcon fontSize="large" className={classes.icon} />
-						<Typography className={classes.accordionTitle}>Others</Typography>
-					</Grid>
-				</AccordionSummary>
-				<AccordionDetails>
-					<Grid container direction="row">
-						<Preferences />
-						<ImageFilters />
-					</Grid>
-				</AccordionDetails>
-			</Accordion>
-		</div>
+		<Grid item>
+			<div className={classes.root}>
+				<Accordion classes={{ root: classes.accordion, expanded: classes.expanded }}>
+					<AccordionSummary expandIcon={<ExpandMoreIcon />}>
+						<Grid container direction="row" alignItems="center">
+							<SettingsOutlinedIcon fontSize="large" className={classes.icon} />
+							<Typography className={classes.accordionTitle}>Others</Typography>
+						</Grid>
+					</AccordionSummary>
+					<AccordionDetails>
+						<Grid container direction="row">
+							<Preferences />
+							<ImageFilters />
+						</Grid>
+					</AccordionDetails>
+				</Accordion>
+			</div>
+		</Grid>
 	);
 };
 

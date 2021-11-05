@@ -52,7 +52,7 @@ const ImageFilters = () => {
 			item
 			container
 			sm={12}
-			md={6}
+			xl={6}
 			className={classes.imageFiltersContainer}
 			direction="column"
 		>

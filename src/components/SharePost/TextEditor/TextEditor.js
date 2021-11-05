@@ -14,22 +14,24 @@ const TextEditor = ({ canvas }) => {
 	const classes = useStyles();
 
 	return (
-		<div className={classes.root}>
-			<Accordion classes={{ root: classes.accordion }}>
-				<AccordionSummary expandIcon={<ExpandMoreIcon />}>
-					<Grid container direction="row" alignItems="center">
-						<TextFieldsOutlinedIcon fontSize="large" className={classes.icon} />
-						<Typography className={classes.accordionTitle}>Customize Text</Typography>
-					</Grid>
-				</AccordionSummary>
-				<AccordionDetails>
-					<Grid container direction="row">
-						<TextSettings />
-						<TextPositions canvas={canvas} />
-					</Grid>
-				</AccordionDetails>
-			</Accordion>
-		</div>
+		<Grid item>
+			<div className={classes.root}>
+				<Accordion classes={{ root: classes.accordion }}>
+					<AccordionSummary expandIcon={<ExpandMoreIcon />}>
+						<Grid container direction="row" alignItems="center">
+							<TextFieldsOutlinedIcon fontSize="large" className={classes.icon} />
+							<Typography className={classes.accordionTitle}>Customize Text</Typography>
+						</Grid>
+					</AccordionSummary>
+					<AccordionDetails>
+						<Grid container direction="row">
+							<TextSettings />
+							<TextPositions canvas={canvas} />
+						</Grid>
+					</AccordionDetails>
+				</Accordion>
+			</div>
+		</Grid>
 	);
 };
 

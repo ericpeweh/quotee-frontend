@@ -83,7 +83,7 @@ const MobileContent = () => {
 				>
 					{!isLoading &&
 						quotes.map((quote, index) => (
-							<Grid item xs={12} key={quote.quotesId || index}>
+							<Grid item xs={12} key={quote?.quotesId}>
 								<QuoteCard mobile quotes={quote} />
 							</Grid>
 						))}

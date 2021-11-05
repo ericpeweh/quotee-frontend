@@ -5,7 +5,7 @@ const useStyles = makeStyles(theme => ({
 		padding: theme.spacing(2),
 		width: "100%",
 		borderRight: theme.palette.type === "dark" ? "2px solid #545454" : "2px solid #bfbfbf",
-		[theme.breakpoints.down("md")]: {
+		[theme.breakpoints.down("xl")]: {
 			borderRight: "none"
 		},
 		[theme.breakpoints.down("xs")]: {
@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
 		borderRadius: 5
 	},
 	textAlignbuttonGroup: {
-		[theme.breakpoints.down(1256)]: {
+		[theme.breakpoints.down(1800)]: {
 			display: "flex",
 			width: "60%",
 			"& > button": {
@@ -44,7 +44,7 @@ const useStyles = makeStyles(theme => ({
 		}
 	},
 	fontStylebuttonGroup: {
-		[theme.breakpoints.down(1256)]: {
+		[theme.breakpoints.down(1800)]: {
 			display: "flex",
 			width: "39%",
 			"& > button": {
@@ -61,7 +61,8 @@ const useStyles = makeStyles(theme => ({
 		}
 	},
 	colorbuttonGroup: {
-		[theme.breakpoints.down(1256)]: {
+		flex: 1,
+		[theme.breakpoints.down(1800)]: {
 			display: "flex",
 			width: "100%"
 		},
@@ -79,7 +80,7 @@ const useStyles = makeStyles(theme => ({
 	},
 	centerDivider: {
 		color: theme.palette.type === "dark" ? "#545454" : "#bfbfbf",
-		[theme.breakpoints.down(1256)]: {
+		[theme.breakpoints.down(1800)]: {
 			display: "none"
 		},
 		[theme.breakpoints.down(960)]: {
@@ -87,6 +88,7 @@ const useStyles = makeStyles(theme => ({
 		}
 	},
 	colorInput: {
+		flex: 1,
 		"-webkit-appearance": "none",
 		"-moz-appearance": "none",
 		appearance: "none",
@@ -106,7 +108,7 @@ const useStyles = makeStyles(theme => ({
 		"&:hover": {
 			cursor: "pointer"
 		},
-		[theme.breakpoints.down(1256)]: {
+		[theme.breakpoints.down(1800)]: {
 			flex: 1
 		}
 	},

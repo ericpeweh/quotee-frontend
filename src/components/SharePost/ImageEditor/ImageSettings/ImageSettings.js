@@ -37,7 +37,7 @@ const ImageSettings = ({ canvas }) => {
 	};
 
 	return (
-		<Grid item sm={12} md={6} className={classes.imageSettingsContainer}>
+		<Grid item sm={12} lg={6} className={classes.imageSettingsContainer}>
 			<Grid container direction="column">
 				<Typography align="center" className={classes.imagePositionTitle}>
 					Image Position

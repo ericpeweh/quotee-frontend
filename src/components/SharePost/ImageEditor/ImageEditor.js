@@ -14,22 +14,24 @@ const ImageEditor = ({ canvas, mobile }) => {
 	const classes = useStyles();
 
 	return (
-		<div className={classes.root}>
-			<Accordion classes={{ root: classes.accordion }}>
-				<AccordionSummary expandIcon={<ExpandMoreIcon />}>
-					<Grid container direction="row" alignItems="center">
-						<PanoramaOutlinedIcon fontSize="large" className={classes.icon} />
-						<Typography className={classes.accordionTitle}>Customize Image</Typography>
-					</Grid>
-				</AccordionSummary>
-				<AccordionDetails>
-					<Grid container direction="row">
-						<ChangeImage canvas={canvas} mobile={mobile} />
-						<ImageSettings canvas={canvas} />
-					</Grid>
-				</AccordionDetails>
-			</Accordion>
-		</div>
+		<Grid item>
+			<div className={classes.root}>
+				<Accordion classes={{ root: classes.accordion }} defaultExpanded={!mobile}>
+					<AccordionSummary expandIcon={<ExpandMoreIcon />}>
+						<Grid container direction="row" alignItems="center">
+							<PanoramaOutlinedIcon fontSize="large" className={classes.icon} />
+							<Typography className={classes.accordionTitle}>Customize Image</Typography>
+						</Grid>
+					</AccordionSummary>
+					<AccordionDetails>
+						<Grid container direction="row">
+							<ChangeImage canvas={canvas} mobile={mobile} />
+							<ImageSettings canvas={canvas} />
+						</Grid>
+					</AccordionDetails>
+				</Accordion>
+			</div>
+		</Grid>
 	);
 };
 

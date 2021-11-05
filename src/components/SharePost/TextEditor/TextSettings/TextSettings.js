@@ -75,6 +75,7 @@ const TextSettings = () => {
 	};
 
 	const textAlignChangeHandler = (e, newValue) => {
+		if (!newValue) return;
 		dispatch(changeTextAlign(newValue));
 	};
 
@@ -99,7 +100,7 @@ const TextSettings = () => {
 			container
 			item
 			sm={12}
-			md={6}
+			xl={6}
 			className={classes.changeFontsContainer}
 			justifyContent="center"
 		>
@@ -163,7 +164,7 @@ const TextSettings = () => {
 					size="small"
 					value={textAlign}
 					exclusive
-					onChange={textAlignChangeHandler}
+					onChange={(e, newValue) => textAlignChangeHandler(e, newValue)}
 					aria-label="text alignment"
 				>
 					<ToggleButton value="left" aria-label="left aligned">

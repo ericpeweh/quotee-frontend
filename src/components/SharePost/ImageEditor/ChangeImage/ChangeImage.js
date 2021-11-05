@@ -62,7 +62,7 @@ const ChangeImage = ({ canvas, mobile }) => {
 	};
 
 	return (
-		<Grid item sm={12} md={6} className={classes.changeImageContainer}>
+		<Grid item sm={12} lg={6} className={classes.changeImageContainer}>
 			<Typography align="center" className={classes.imagePositionTitle}>
 				Image Source
 			</Typography>
