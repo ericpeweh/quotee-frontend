@@ -103,6 +103,7 @@ body {
 @media screen and (min-width: 600px) {
 	::-webkit-scrollbar {
 		width: 12px;
+		background-color: rgba(0, 0, 0, 0.4);
 	}
 
 	::-webkit-scrollbar-track-piece {
