@@ -26,7 +26,7 @@ const CreateDisplay = ({ quotesDisplay }) => {
 					<br />
 					<span className={classes.quotesAuthor}>{username}</span>
 				</div>
-				<div className={classes.watermark}>quoteequotes.xyz</div>
+				<div className={classes.watermark}>quoteequotes</div>
 			</Grid>
 		</Grid>
 	);

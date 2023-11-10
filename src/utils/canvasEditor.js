@@ -117,7 +117,7 @@ export const initAuthorText = async ({ author, canvas }) => {
 };
 
 export const initWatermark = ({ canvas }) => {
-	const author = new fabric.Text("quoteequotes.xyz", {
+	const author = new fabric.Text("quoteequotes", {
 		fill: "#f3f3f3",
 		selectable: false,
 		editable: false,

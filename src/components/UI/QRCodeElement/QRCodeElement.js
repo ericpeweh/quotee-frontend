@@ -32,7 +32,7 @@ const QRCodeElement = () => {
 			>
 				<Grid item>
 					<QRCode
-						value={`https://quoteequotes.xyz/${username}`}
+						value={`https://quotee.cyclic.app/${username}`}
 						id="qrcode"
 						renderAs="canvas"
 						includeMargin

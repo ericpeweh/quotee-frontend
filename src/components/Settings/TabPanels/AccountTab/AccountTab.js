@@ -37,7 +37,7 @@ const AccountTab = ({ currentTab, mobile }) => {
 	const qrCodeElement = (
 		<Grid item className={classes.qrCodeContainer}>
 			<QRCode
-				value={`https://quoteequotes.xyz/${username}`}
+				value={`https://quotee.cyclic.app/${username}`}
 				renderAs="svg"
 				includeMargin
 				size={140}

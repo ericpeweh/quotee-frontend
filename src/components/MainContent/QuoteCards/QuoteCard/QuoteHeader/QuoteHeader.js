@@ -112,7 +112,7 @@ const QuoteHeader = ({ quotes, favorites, mobile, isDetailsPage, status }) => {
 				text: "Copy link",
 				action: () => {
 					navigator.clipboard.writeText(
-						`https://quoteequotes.xyz/${quotes.author}/p/${quotes._id}?source=copy_link`
+						`https://quotee.cyclic.app/${quotes.author}/p/${quotes._id}?source=copy_link`
 					);
 					closeMenuHandler();
 					dispatch(snackbarMessageChange("Quotes link copied."));

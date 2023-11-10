@@ -21,7 +21,7 @@ const QRScanner = () => {
 	};
 
 	const scanHandler = data => {
-		if (data && data.includes("https://quoteequotes.xyz/")) {
+		if (data && data.includes("https://quotee.cyclic.app/")) {
 			const username = data.split("/")[3];
 			history.push(`/${username}`);
 		}

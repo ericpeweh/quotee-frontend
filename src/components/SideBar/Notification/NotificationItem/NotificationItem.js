@@ -20,7 +20,7 @@ const NotificationItem = ({ date, notificationAvatar, name, description, url, an
 	const classes = useStyles();
 
 	const clickHandler = () => {
-		history.push(url.replace("https://www.quoteequotes.xyz/", ""));
+		history.push(url.replace("https://quotee.cyclic.app/", ""));
 	};
 
 	return (
